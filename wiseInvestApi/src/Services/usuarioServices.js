@@ -3,12 +3,12 @@ const usuarioRepositorie = require("../Repositories/usuarioRepositories");
 
 const loginService = async (user, password) => {
   const passwordCrypto = hash(password);
-  const db = await usuarioRepositorie.loginRepository(user, passwordCrypto);
+  const db = await usuarioRepositorie.loginRepository(user);
 
   if (isNullOrEmpty(db))
     throw '9002.Usuario ou senha Inválidos';
 
-  if (db.password === passwordCrypto)
+  if (db.Password_User === passwordCrypto)
     return true;
   else 
     throw '9002.Usuario ou senha Inválidos';
@@ -21,55 +21,96 @@ const registerService = async (data) => {
   
   const passwordCrypto = hash(data.password);
   const newUser = { 
-    username: data.username,
-    password: passwordCrypto
+    Name_user: data.username,
+    Email_user: data.emailUser,
+    Password_user: passwordCrypto,
+    ID_Access_Type: 4
   };
-  const db = await usuarioRepositorie.registerRepository(newUser);
-  return `${db}`;
+
+  try {
+    const db = await usuarioRepositorie.registerRepository(newUser);
+
+    if(db["affectedRows"] === 0) {
+      throw new Error("Not insert");
+    }
+
+    return db;
+  } catch (error) {
+    return error  
+  }
 }
 
 const updateSevice = async (id, data) => {
-  
   // Fazer requisição para verificar se o usuario existe
 
-  let exists = verifyUserService(id);
+  let exists = await verifyUserService(id);
 
-  if (exists === false)
-  throw '9003.Não foi encontrado usuário para ser alterados.';
+  try {
 
-
-  if (!isNullOrEmpty(data)) {
-
-    let { username, password } = data
-    
-    if (!isNullOrEmpty(password)) {
-      password = hash(password);
+    if (exists === false) {
+      const exception = new Error('9003.Não foi encontrado usuário para ser alterados.');
+      exception.code = 404;
+      throw exception;
     }
+
+    if (isNullOrEmpty(data)) {
+      const exception = new Error('9003.Não foi encontrado usuário para ser alterados.');
+      exception.code = 404;
+      throw exception;
+    }
+
+    let { nameUser,
+          emailUser,
+          passwordUser,
+          dtBirth,
+          nationalIdentifier,
+          typePerson,
+          idAccessType } = data
     
+    if (!isNullOrEmpty(passwordUser)) {
+      passwordUser = hash(passwordUser);
+    }
+
+    // console.log(typeof(typePerson));
+    
+    // if ((typePerson !== 'F') || (typePerson !== 'J')) {
+    //   console.log('teste');
+    //   const exception = new Error('Check the parameters sent. typePerson 1');
+    //   exception.code = 422;
+    //   throw exception;
+    // }
+
     const newData = {
-      username,
-      password
+      nameUser,
+      emailUser,
+      passwordUser,
+      dtBirth,
+      nationalIdentifier,
+      typePerson,
+      idAccessType
     }
+
+    console.log(newData);
+
     const db = await usuarioRepositorie.updateRepository(id, newData);
     
     console.log(db);
     
     return db;
+    
+  } catch (error) {
+    return error;
   }
 }
 
 const verifyUserService = async (id) => {
-
   const db = await usuarioRepositorie.VerifyUserRepository(id);
 
-  console.log(db);
-
-  if (isNullOrEmpty(db))
-    return false;
-  else 
+  if (db.length > 0)
     return true;
+  else 
+    return false;
 }
-
 
 module.exports = {
   loginService,
