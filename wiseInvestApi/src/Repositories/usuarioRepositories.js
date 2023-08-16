@@ -1,56 +1,74 @@
-const db = require('../db/dbMongo');
+const db = require('../db/dbMySql');
 
 const loginRepository = async (user) => {
-  const users = await db.Mongoose.model('users', db.UserSchema, 'users');
   try {
-    const docs = await users.findOne({
-                                    username: user
-                                 })
-                            .exec();
-    return docs;
+    let result = await db.query(`SELECT Email_User, Password_User 
+                                FROM dbo.Users 
+                                WHERE Email_User = '${user}';`);
+    return result[0][0];
+    
   } catch (error) {
     return error;
   }
 }
 
-const  registerRepository = async (data) => {
-  const users = await db.Mongoose.model('users', db.UserSchema, 'users');
-  const user = new users(data);
-  
+const registerRepository = async (data) => {
   try {
-    let newUser = await user.save();
-    return newUser._id;
+    let result = await db.query("INSERT INTO dbo.Users(Name_user, Email_user, Password_user, Active_User, ID_Access_Type, DH_Inclusion ) VALUES (?,?,?,?,?,?)", [data.Name_user, data.Email_user, data.Password_user, true, data.ID_Access_Type, new Date()]);
+
+    result = result[0];
+    return {'affectedRows': result["affectedRows"], 'Id': result["insertId"]};
+
   } catch (error) {
-    return error;
+    return {};
   }
 }
 
 const updateRepository = async (id, data) => {
 
+  const dhChanged = new Date();
+  // let updateData = [data.nameUser, data.emailUser, data.passwordUser, date.dtBirth, data.nationalIdentifier, data.typePerson, data.idAccessType, dhChanged]
+
   try {
-    const users = await db.Mongoose.model('users', db.UserSchema, 'users');
-    const user = await users.updateOne({ _id: id }, { $set: data } );
-    return user;
+    let result = await db.query(`UPDATE Users 
+                                 SET Name_user           = '${data.nameUser}'
+                                    ,Email_user          = '${data.emailUser}'
+                                    ,Password_user       = '${data.passwordUser}'
+                                    ,DT_Birth            = '${data.dtBirth}'
+                                    ,National_Identifier = '${data.nationalIdentifier}'
+                                    ,Type_Person         = '${data.typePerson}'
+                                    ,ID_Access_Type      = ${data.idAccessType}
+                                    ,DH_Change           = '${dhChanged}'
+                                 WHERE ID_user = ${id}`);
+    result = result[0]
+    console.log(result);
+    return {'affectedRows': result["affectedRows"]};
   } catch (error) {
-    throw error;
+    return {};
   }
 }
 
 const VerifyUserRepository = async (id) => {
-  const users = await db.Mongoose.model('users', db.UserSchema, 'users');
+  
   try {
-    const docs = await users.findOne({ _id: id })
-                            .exec();
-    return docs;
+    const result = await db.query(`SELECT 1
+                                   FROM dbo.Users
+                                   WHERE ID_user = ${id}`);
+    return result[0];
   } catch (error) {
-    return error;
+    return {};
   }
 }
 
-
 const deleteRepository = async (id) => {
-
-  return id;
+  try {
+    let result = await db.query(`DELETE dbo.Users 
+                                 WHERE ID_User = ${id}`);
+    result = result[0]
+    return {'affectedRows': result["affectedRows"]};
+  } catch (error) {
+    return {};
+  }
 }
 
 module.exports= {
