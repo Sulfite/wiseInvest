@@ -90,16 +90,19 @@ const updateSevice = async (id, data) => {
       idAccessType
     }
 
-    console.log(newData);
-
     const db = await usuarioRepositorie.updateRepository(id, newData);
-    
-    console.log(db);
-    
+
+    if(isNullOrEmpty(db.length)) {
+      const exception = new Error('Not insert');
+      exception.code = 500;
+      throw exception;
+    }
+
     return db;
     
   } catch (error) {
-    return error;
+    let message = {"title": error.name, "Message:": error.message }
+    return message;
   }
 }
 
