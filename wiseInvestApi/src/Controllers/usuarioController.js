@@ -39,8 +39,8 @@ const registerController = async (req, res, next) => {
 const updateController = async (req, res, next) => {
   const data = req.body;
   const _id = req.params.id;
+  
   try {
-
     if (isNullOrEmpty(_id)) {
       const exception = new Error('Check the parameters sent.');
       exception.code = 422;
@@ -49,15 +49,12 @@ const updateController = async (req, res, next) => {
 
     const response = await usuarioServices.updateSevice(_id, data);
 
-    console.log(response);
-
-    res.status(200).send(response.modifiedCount > 0 ? true : false);
+    res.status(200).send(response);
 
   } catch (e) {
     let message = {"title": e.name, "Message:": e.message }
     return res.status(e.code).send(`${JSON.stringify(message)}`);
   }
-
 }
 
 const verifyUserController = async (req, res, next) => {

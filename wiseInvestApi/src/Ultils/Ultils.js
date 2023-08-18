@@ -11,7 +11,7 @@ const hash = (password) => {
 };
 
 const isNullOrEmpty = (value) => {
-	if (value === null || value === "" || value === "null")
+	if (value === null || value === "" || value === "null" || value === undefined)
         return true
 	else
         return false
