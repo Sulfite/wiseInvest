@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 const usuariosRoutes = require("./Routes/usuarioRoutes");
 const authenticationRoutes =require("./Routes/authenticationRoutes");
 
-// Rotas pormodulos
+// Rotas por modulos
 app.use("/", usuariosRoutes);
 app.use("/auth", authenticationRoutes);
 
