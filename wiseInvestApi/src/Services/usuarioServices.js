@@ -159,7 +159,7 @@ const getUsersPaginationService = async (data) => {
   }
   
   try {
-    const db = await usuarioRepositorie.getUsersPagination(offset, limit);
+    const db = await usuarioRepositorie.getUsersPaginationRepository(offset, limit);
 
     if (db.length === 0) {
       const exception = new Error('Users not found.');
@@ -169,7 +169,77 @@ const getUsersPaginationService = async (data) => {
 
     return db;
   } catch (error) {
-    const message = {"code": error.code, "title": error.name, "message": error.message }
+    const message = {"code": error.code, "title": error.name, "message": error.message}
+    return message;
+  }
+}
+
+const filterUsersService = async (data) => {
+
+  const { name,
+          email,
+          dtBirth,
+          nationalIdentifier,
+          typePerson,
+          idAccessType,
+          active 
+        } = data;
+
+  let parameterSearch = '';
+
+  if (!isNullOrEmpty(name)) {
+    parameterSearch = `Name_user LIKE '%${name}%' , `;
+  }
+
+  if (!isNullOrEmpty(email)) {
+    parameterSearch += `Email_user LIKE '%${email}%' , `;
+  }
+
+  if (!isNullOrEmpty(dtBirth)) {
+    parameterSearch += `dtBirth = '${dtBirth}' , `;
+  }
+  
+  if (!isNullOrEmpty(nationalIdentifier)) {
+    parameterSearch += `nationalIdentifier = '${nationalIdentifier}' , `;
+
+    if (isNullOrEmpty(typePerson)) {
+      if (nationalIdentifier.length > 11) {
+        typePerson = 'J';
+      } else {
+        typePerson = 'F';
+      }
+    }
+  }
+
+  if(!isNullOrEmpty(typePerson)) {
+    parameterSearch += `Type_Person = '${typePerson}' , `;
+  }
+
+  if (!isNullOrEmpty(email)) {
+    parameterSearch += `Email_user LIKE '%${email}%' , `;
+  }
+
+  if (!isNullOrEmpty(idAccessType) && typeof(idAccessType) == 'number') {
+    parameterSearch += `ID_Access_Type= ${idAccessType} , `;
+  }
+
+  if (!isNullOrEmpty(active)) {
+    parameterSearch += `Active_User = ${active}`;
+  }
+
+  parameterSearch = parameterSearch.replaceAll(',', 'AND');
+
+  console.log(parameterSearch);
+
+
+  try {
+    const db = usuarioRepositorie.filterUsersRepository(parameterSearch)
+
+    // return db;
+    return [];
+
+  } catch (error) {
+    const message = {"code": error.code, "title": error.name, "message": error.message};
     return message;
   }
 }
@@ -180,5 +250,6 @@ module.exports = {
   updateSevice,
   verifyUserService,
   deleteUserService,
-  getUsersPaginationService
+  getUsersPaginationService,
+  filterUsersService
 }

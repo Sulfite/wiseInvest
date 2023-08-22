@@ -61,7 +61,7 @@ const deleteRepository = async (id) => {
   }
 }
 
-const getUsersPagination = async (offset, limit) => {
+const getUsersPaginationRepository = async (offset, limit) => {
   
   try {
     const result = await db.query(`SELECT * FROM dbo.users
@@ -73,11 +73,28 @@ const getUsersPagination = async (offset, limit) => {
   }
 }
 
+const filterUsersRepository = async (sql) => {
+
+  try {
+
+
+    const result = [];
+    // const result = await db.query(`SELECT * FROM dbo.users WHERE ${sql}`);
+
+    return result;
+    
+  } catch (e) {
+    return [];
+  }
+
+}
+
 module.exports= {
   loginRepository,
   registerRepository,
   updateRepository,
   VerifyUserRepository,
   deleteRepository,
-  getUsersPagination
+  getUsersPaginationRepository,
+  filterUsersRepository
 }

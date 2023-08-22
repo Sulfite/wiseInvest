@@ -12,5 +12,6 @@ router.put('/update/:id', usuarioController.updateController);
 router.get('/verify/:id', usuarioController.verifyUserController);
 router.delete('/delete/:id', usuarioController.deleteUserController);
 router.get('/getUsers', usuarioController.getUsersPaginationControler);
+// router.get('/filterUsers', usuarioController.filterUsersControler);
 
 module.exports = router;

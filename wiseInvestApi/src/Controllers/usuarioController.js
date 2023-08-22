@@ -125,11 +125,33 @@ const getUsersPaginationControler = async (req, res, next) => {
   }
 }
 
+const filterUsersControler = async (req, res, next) => {
+  
+  const data = req.body;
+  try {
+
+    const response = await usuarioServices.filterUsersService(data);
+    
+    // if (response.code > 0 && response.title === 'Error') {
+    //   const exception = new Error(response.message);
+    //   exception.code = response.code;
+    //   throw exception;
+    // }
+
+    res.status(200).send(response);
+    
+  } catch (e) {
+    const message = {"title": e.name, "Message:": e.message };
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+}
+
 module.exports = { 
   loginController,
   registerController,
   updateController,
   verifyUserController,
   deleteUserController,
-  getUsersPaginationControler
+  getUsersPaginationControler,
+  filterUsersControler
 };
