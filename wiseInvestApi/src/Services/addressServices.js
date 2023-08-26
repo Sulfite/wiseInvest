@@ -367,6 +367,140 @@ const deleteCityService = async (id) => {
   }
 }
 
+// Adresses
+const registerAddressService = async (data) => {
+
+  // Usar funcao de anti injecton
+  // Usar função de validacao de json
+  
+  const newAddress = { 
+    Street: data.street,
+    District: data.district,
+    Number_Street: data.numberStreet,
+    CD_Postal: data.cdPostal,
+    Complement: data.complement,
+    ID_City: data.idCity,
+    ID_User: data.idUser,
+  };
+
+  try {
+    const db = await addressRepositorie.registerAddressRepository(newAddress);
+
+    if(db.length === 0) {
+      const exception = new Error('Not insert.');
+      exception.code = 500;
+      throw exception;
+    }
+
+    return db;
+  } catch (error) {
+    let message = {"title": error.name, "Message:": error.message, "code": error.code }
+    return message;
+  }
+}
+
+const listAdressesService = async (id) => {
+  try {
+    const db = await addressRepositorie.listAdressesRepository(id);
+    
+    if(db.length === 0) {
+      const exception = new Error('Not found Adresses.');
+      exception.code = 404;
+      throw exception;
+    }
+    return db;
+
+  } catch (error) {
+    let message = {"title": error.name, "Message:": error.message, "code": error.code }
+    return message;
+  }
+}
+
+const detailsAddressService = async (id) => {
+  try {
+
+    if (isNullOrEmpty(id)) {
+      const exception = Error('Check the parameters sent.');;
+      exception.code = 422;
+      throw exception;
+    }
+
+    const db = await addressRepositorie.detailsAddressRepository(id);
+    
+    if(db.length === 0) {
+      const exception = new Error(`Not found Address. ${id}`);
+      exception.code = 404;
+      throw exception;
+    }
+    return db;
+  } catch (error) {
+    let message = {"title": error.name, "Message:": error.message, "code": error.code }
+    return message;
+  }
+}
+
+const updateAddressSevice = async (id, data) => {
+
+  try {
+
+    if (isNullOrEmpty(data)) {
+      const exception = new Error('9003.Não foi encontrado usuário para ser alterados.');
+      exception.code = 404;
+      throw exception;
+    }
+
+    const { street,
+            district,
+            numberStreet,
+            cdPostal,
+            complement,
+            idCity,
+            idUser,  } = data
+
+    const updateAddress = { 
+      Street: street,
+      District: district,
+      Number_Street: numberStreet,
+      CD_Postal: cdPostal,
+      Complement: complement,
+      ID_City: idCity,
+      ID_User: idUser,
+    };
+
+    const db = await addressRepositorie.updateAddressRepository(id, updateAddress);
+
+    if(isNullOrEmpty(db.length)) {
+      const exception = new Error('Not updated');
+      exception.code = 500;
+      throw exception;
+    }
+
+    return db;
+    
+  } catch (error) {
+    let message = {"title": error.name, "Message:": error.message }
+    return message;
+  }
+}
+
+const deleteAddressService = async (id) => {
+
+  try {
+    const db = await addressRepositorie.deleteAddressRepository(id);
+
+    if(db.length === 0) {
+      const exception = new Error('Not delete.');
+      exception.code = 500;
+      throw exception;
+    }
+    
+    return db;
+  } catch (error) {
+    let message = {"title": error.name, "Message:": error.message }
+    return message;
+  }
+}
+
 module.exports = {
   listCountriesService,
   registerCountryService,
@@ -385,4 +519,10 @@ module.exports = {
   updateCitySevice,
   detailsCityService,
   deleteCityService,
+
+  listAdressesService,
+  registerAddressService,
+  updateAddressSevice,
+  detailsAddressService,
+  deleteAddressService,
 }

@@ -27,4 +27,11 @@ router.get("/detailsCity/:id", addressController.datailsCityController);
 router.put("/updateCity/:id", addressController.updateCityController);
 router.delete("/deleteCity/:id", addressController.deleteCityController);
 
+// Adresses
+router.post("/addAddress", addressController.registerAddressController);
+router.get("/listAdresses/:id",  addressController.listAdressesController);
+router.get("/detailsAddress/:id", addressController.datailsAddressController);
+router.put("/updateAddress/:id", addressController.updateAddressController);
+router.delete("/deleteAddress/:id", addressController.deleteAddressController);
+
 module.exports = router;
