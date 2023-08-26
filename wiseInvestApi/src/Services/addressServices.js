@@ -245,6 +245,128 @@ const deleteStateService = async (id) => {
   }
 }
 
+// Cities
+const registerCityService = async (data) => {
+
+  // Usar funcao de anti injecton
+  // Usar função de validacao de json
+  
+  const newCity = { 
+    Name_City: data.nameCity,
+    DDD: data.ddd,
+    ID_State: data.idState
+  };
+
+  try {
+    const db = await addressRepositorie.registerCityRepository(newCity);
+
+    if(db.length === 0) {
+      const exception = new Error('Not insert.');
+      exception.code = 500;
+      throw exception;
+    }
+
+    return db;
+  } catch (error) {
+    let message = {"title": error.name, "Message:": error.message, "code": error.code }
+    return message;
+  }
+}
+
+const listCitiesService = async () => {
+  try {
+    const db = await addressRepositorie.listCitiesRepository();
+    
+    if(db.length === 0) {
+      const exception = new Error('Not found Cities.');
+      exception.code = 404;
+      throw exception;
+    }
+    return db;
+
+  } catch (error) {
+    let message = {"title": error.name, "Message:": error.message, "code": error.code }
+    return message;
+  }
+}
+
+const detailsCityService = async (id) => {
+  try {
+
+    if (isNullOrEmpty(id)) {
+      const exception = Error('Check the parameters sent.');;
+      exception.code = 422;
+      throw exception;
+    }
+
+    const db = await addressRepositorie.detailsCityRepository(id);
+    
+    if(db.length === 0) {
+      const exception = new Error(`Not found City. ${id}`);
+      exception.code = 404;
+      throw exception;
+    }
+    return db;
+  } catch (error) {
+    let message = {"title": error.name, "Message:": error.message, "code": error.code }
+    return message;
+  }
+}
+
+const updateCitySevice = async (id, data) => {
+
+  try {
+
+    if (isNullOrEmpty(data)) {
+      const exception = new Error('9003.Não foi encontrado usuário para ser alterados.');
+      exception.code = 404;
+      throw exception;
+    }
+
+    const { nameCity,
+            ddd,
+            idState  } = data
+
+    const updateCity = {
+      Name_City: nameCity,
+      DDD: ddd,
+      ID_State: idState
+    }
+
+    const db = await addressRepositorie.updateCityRepository(id, updateCity);
+
+    if(isNullOrEmpty(db.length)) {
+      const exception = new Error('Not updated');
+      exception.code = 500;
+      throw exception;
+    }
+
+    return db;
+    
+  } catch (error) {
+    let message = {"title": error.name, "Message:": error.message }
+    return message;
+  }
+}
+
+const deleteCityService = async (id) => {
+
+  try {
+    const db = await addressRepositorie.deleteCityRepository(id);
+
+    if(db.length === 0) {
+      const exception = new Error('Not updated');
+      exception.code = 500;
+      throw exception;
+    }
+    
+    return db;
+  } catch (error) {
+    let message = {"title": error.name, "Message:": error.message }
+    return message;
+  }
+}
+
 module.exports = {
   listCountriesService,
   registerCountryService,
@@ -256,5 +378,11 @@ module.exports = {
   registerStateService,
   updateStateSevice,
   detailsStateService,
-  deleteStateService
+  deleteStateService,
+
+  listCitiesService,
+  registerCityService,
+  updateCitySevice,
+  detailsCityService,
+  deleteCityService,
 }

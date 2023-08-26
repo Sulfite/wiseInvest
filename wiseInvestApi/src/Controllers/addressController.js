@@ -109,7 +109,6 @@ const deleteCountryController = async (req, res, next) => {
 };
 
 // States
-// Countries
 const registerStateController = async (req, res, next) => {
   // colocar verificacoes iniciais
   const data = req.body;
@@ -216,6 +215,113 @@ const deleteStateController = async (req, res, next) => {
   }
 };
 
+// Cities
+const registerCityController = async (req, res, next) => {
+  // colocar verificacoes iniciais
+  const data = req.body;
+
+  try {
+    const response = await addressServices.registerCityService(data);
+
+    if (response.length === 0) {
+      const exception = new Error("Error when inserting a new record.");
+      exception.code = 500;
+      throw exception;
+    }
+
+    res.status(201).send(JSON.stringify(response));
+  } catch (e) {
+    let message = { title: e.name, "Message:": e.message };
+    return res.status(500).send(`${JSON.stringify(message)}`);
+  }
+};
+
+const listCitiesController = async (req, res, next) => {
+  try {
+    const response = await addressServices.listCitiesService();
+
+    if (response.length === 0) {
+      const exception = new Error("Error when inserting a new record.");
+      exception.code = 500;
+      throw exception;
+    }
+
+    res.status(200).send(JSON.stringify(response));
+  } catch (error) {
+    let message = {"title": e.name, "Message:": e.message }
+    return res.status(e.code).send(JSON.stringify(message));
+  }
+};
+
+const datailsCityController = async (req, res, next) => {
+  const _id = req.params.id;
+
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error("Check the parameters sent.");
+      exception.code = 422;
+      throw exception;
+    }
+
+    const response = await addressServices.detailsCityService(_id);
+
+    if (response.length === 0) {
+      const exception = new Error("Error.");
+      exception.code = 500;
+      throw exception;
+    }
+
+    res.status(200).send(response);
+  } catch (e) {
+    let message = { title: e.name, "Message:": e.message };
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+};
+
+const updateCityController = async (req, res, next) => {
+  const data = req.body;
+  const _id = req.params.id;
+
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error("Check the parameters sent.");
+      exception.code = 422;
+      throw exception;
+    }
+
+    const response = await addressServices.updateCitySevice(_id, data);
+
+    if (response.length === 0) {
+    const exception = new Error(`Error when Updated a record. ${_id}`);
+      exception.code = 500;
+      throw exception;
+    }
+
+    res.status(200).send(response);
+  } catch (e) {
+    let message = { title: e.name, "Message:": e.message };
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+};
+
+const deleteCityController = async (req, res, next) => {
+  const _id = req.params.id;
+
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error("Check the parameters sent.");
+      exception.code = 422;
+      throw exception;
+    }
+
+    const response = await addressServices.deleteCityService(_id);
+    res.status(200).send(response);
+  } catch (e) {
+    let message = { title: e.name, "Message:": e.message };
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+};
+
 module.exports = {
   listCountriesController,
   registerCountryController,
@@ -228,4 +334,10 @@ module.exports = {
   updateStateController,
   datailsStateController,
   deleteStateController,
+
+  listCitiesController,
+  registerCityController,
+  updateCityController,
+  datailsCityController,
+  deleteCityController,
 };
