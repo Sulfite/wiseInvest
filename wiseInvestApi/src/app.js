@@ -13,10 +13,12 @@ app.use(bodyParser.json());
 
 // Importação das Rotas
 const usuariosRoutes = require("./Routes/usuarioRoutes");
+const addressRoutes = require("./Routes/addressRoutes");
 const authenticationRoutes =require("./Routes/authenticationRoutes");
 
 // Rotas pormodulos
 app.use("/", usuariosRoutes);
+app.use("/address", addressRoutes);
 app.use("/auth", authenticationRoutes);
 
 app.listen(port, () => {
