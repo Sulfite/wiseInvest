@@ -20,4 +20,11 @@ router.get("/detailsState/:id", addressController.datailsStateController);
 router.put("/updateState/:id", addressController.updateStateController);
 router.delete("/deleteState/:id", addressController.deleteStateController);
 
+// Cities
+router.post("/addCity", addressController.registerCityController);
+router.get("/listCities",  addressController.listCitiesController);
+router.get("/detailsCity/:id", addressController.datailsCityController);
+router.put("/updateCity/:id", addressController.updateCityController);
+router.delete("/deleteCity/:id", addressController.deleteCityController);
+
 module.exports = router;
