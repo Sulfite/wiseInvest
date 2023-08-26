@@ -323,6 +323,121 @@ const deleteCityController = async (req, res, next) => {
   }
 };
 
+// Cities
+const registerAddressController = async (req, res, next) => {
+  // colocar verificacoes iniciais
+  const data = req.body;
+
+  try {
+    const response = await addressServices.registerAddressService(data);
+
+    if (response.length === 0) {
+      const exception = new Error("Error when inserting a new record.");
+      exception.code = 500;
+      throw exception;
+    }
+
+    res.status(201).send(JSON.stringify(response));
+  } catch (e) {
+    let message = { title: e.name, "Message:": e.message };
+    return res.status(500).send(`${JSON.stringify(message)}`);
+  }
+};
+
+const listAdressesController = async (req, res, next) => {
+  const _idUser = req.params.id;
+
+  try {
+    if (isNullOrEmpty(_idUser)) {
+      const exception = new Error("Check the parameters sent.");
+      exception.code = 422;
+      throw exception;
+    }
+
+    const response = await addressServices.listAdressesService(_idUser);
+
+    if (response.length === 0) {
+      const exception = new Error("Error when inserting a new record.");
+      exception.code = 500;
+      throw exception;
+    }
+
+    res.status(200).send(JSON.stringify(response));
+  } catch (error) {
+    let message = {"title": e.name, "Message:": e.message }
+    return res.status(e.code).send(JSON.stringify(message));
+  }
+};
+
+const datailsAddressController = async (req, res, next) => {
+  const _id = req.params.id;
+
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error("Check the parameters sent.");
+      exception.code = 422;
+      throw exception;
+    }
+
+    const response = await addressServices.detailsAddressService(_id);
+
+    if (response.length === 0) {
+      const exception = new Error("Error.");
+      exception.code = 500;
+      throw exception;
+    }
+
+    res.status(200).send(response);
+  } catch (e) {
+    let message = { title: e.name, "Message:": e.message };
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+};
+
+const updateAddressController = async (req, res, next) => {
+  const data = req.body;
+  const _id = req.params.id;
+
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error("Check the parameters sent.");
+      exception.code = 422;
+      throw exception;
+    }
+
+    const response = await addressServices.updateAddressSevice(_id, data);
+
+    if (response.length === 0) {
+    const exception = new Error(`Error when Updated a record. ${_id}`);
+      exception.code = 500;
+      throw exception;
+    }
+
+    res.status(200).send(response);
+  } catch (e) {
+    let message = { title: e.name, "Message:": e.message };
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+};
+
+const deleteAddressController = async (req, res, next) => {
+  const _id = req.params.id;
+
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error("Check the parameters sent.");
+      exception.code = 422;
+      throw exception;
+    }
+
+    const response = await addressServices.deleteAddressService(_id);
+    res.status(200).send(response);
+  } catch (e) {
+    let message = { title: e.name, "Message:": e.message };
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+};
+
 module.exports = {
   listCountriesController,
   registerCountryController,
@@ -342,4 +457,9 @@ module.exports = {
   datailsCityController,
   deleteCityController,
 
+  listAdressesController,
+  registerAddressController,
+  updateAddressController,
+  datailsAddressController,
+  deleteAddressController,
 };
