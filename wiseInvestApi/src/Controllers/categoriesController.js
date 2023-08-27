@@ -1,16 +1,10 @@
-const usuarioServices = require("../Services/usuarioServices");
+const categoryServices = require("../Services/categoriesServices");
 const { isNullOrEmpty } = require('../Ultils/Ultils');
 
-const db = require('../db/dbMySql');
-
-const loginController = async (req, res, next) => {
-  const { user, password } = req.body;
-  
+// Caterory
+const listCategoriesController = async (req, res, next) => {
   try {
-    if (isNullOrEmpty(user) || isNullOrEmpty(password))
-      throw '9001.Verifique os dados enviados estão preenchidos corretamente.';
-
-    const response = await usuarioServices.loginService(user, password);
+    const response = await categoryServices.listCategoriesService();
     res.status(200).send(JSON.stringify(response));
   }
   catch(error) {
@@ -23,16 +17,19 @@ const registerController = async (req, res, next) => {
   const data = req.body;
 
   try {
-    const response = await usuarioServices.registerService(data);
+    const response = await categoryServices.registerService(data);
 
-    if (isNullOrEmpty(response["affectedRows"]))
-      throw new Error('Error when inserting a new record');
-
-    res.status(201).send(`${JSON.stringify(response)}`);
+    if (response.code > 0 && response.title === 'Error') {  
+      const exception = new Error(response.message);
+      exception.code = response.code;
+      throw exception;
+    }
+    res.status(201).send(JSON.stringify(response));
+ 
   }
   catch(e) {
     let message = {"title": e.name, "Message:": e.message }
-    return res.status(500).send(`${JSON.stringify(message)}`);
+    return res.status(e.code).send(JSON.stringify(message));
   }
 }
 
@@ -47,9 +44,9 @@ const updateController = async (req, res, next) => {
       throw exception;
     }
 
-    const response = await usuarioServices.updateSevice(_id, data);
+    const response = await categoryServices.updateSevice(_id, data);
 
-    res.status(200).send(response);
+    res.status(200).send(JSON.stringify(response));
 
   } catch (e) {
     let message = {"title": e.name, "Message:": e.message }
@@ -57,8 +54,7 @@ const updateController = async (req, res, next) => {
   }
 }
 
-const verifyUserController = async (req, res, next) => {
-
+const detailsCategoryController = async (req, res, next) => {
   const _id = req.params.id;
 
   try {
@@ -68,7 +64,7 @@ const verifyUserController = async (req, res, next) => {
       throw exception;
     }
 
-    const response = await usuarioServices.verifyUserService(_id);
+    const response = await categoryServices.detailsCategoryService(_id);
     res.status(200).send(response);
   } catch (e) {
     let message = {"title": e.name, "Message:": e.message }
@@ -76,9 +72,137 @@ const verifyUserController = async (req, res, next) => {
   }
 }
 
+const deleteCategoryController = async (req, res, next) => {
+  const _id = req.params.id;
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error('Check the parameters sent.');
+      exception.code = 422
+      throw exception;
+    }
+
+    const response = await categoryServices.deleteCategoryService(_id);
+    if (response.code > 0 && response.title === 'Error') {
+      const exception = new Error(response.message);
+      exception.code = response.code;
+      throw exception;
+    }
+
+    if (response[0] === 1)
+      res.status(200).send(true);
+    
+  } catch (e) {
+    const message = {"title": e.name, "Message:": e.message };
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+}
+
+// Caterory
+const listSubcategoriesController = async (req, res, next) => {
+  try {
+    const response = await categoryServices.listSubcategoriesService();
+    res.status(200).send(JSON.stringify(response));
+  }
+  catch(error) {
+    return next(JSON.stringify(error));
+  }
+}
+
+const registerSubcategoryController = async (req, res, next) => {
+ // colocar verificacoes iniciais 
+  const data = req.body;
+
+  try {
+    const response = await categoryServices.registerSubcategoryService(data);
+
+    if (response.code > 0 && response.title === 'Error') {  
+      const exception = new Error(response.message);
+      exception.code = response.code;
+      throw exception;
+    }
+    res.status(201).send(JSON.stringify(response));
+ 
+  }
+  catch(e) {
+    let message = {"title": e.name, "Message:": e.message }
+    return res.status(e.code).send(JSON.stringify(message));
+  }
+}
+
+const updateSubcategoryController = async (req, res, next) => {
+  const data = req.body;
+  const _id = req.params.id;
+  
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error('Check the parameters sent.');
+      exception.code = 422;
+      throw exception;
+    }
+
+    const response = await categoryServices.updateSubcategorySevice(_id, data);
+
+    res.status(200).send(JSON.stringify(response));
+
+  } catch (e) {
+    let message = {"title": e.name, "Message:": e.message }
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+}
+
+const detailsSubcategoryController = async (req, res, next) => {
+  const _id = req.params.id;
+
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error('Check the parameters sent.');
+      exception.code = 422;
+      throw exception;
+    }
+
+    const response = await categoryServices.detailsSubcategoryService(_id);
+    res.status(200).send(response);
+  } catch (e) {
+    let message = {"title": e.name, "Message:": e.message }
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+}
+
+const deleteSubcategoryController = async (req, res, next) => {
+  const _id = req.params.id;
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error('Check the parameters sent.');
+      exception.code = 422
+      throw exception;
+    }
+
+    const response = await categoryServices.deleteSubcategoryService(_id);
+    if (response.code > 0 && response.title === 'Error') {
+      const exception = new Error(response.message);
+      exception.code = response.code;
+      throw exception;
+    }
+
+    if (response[0] === 1)
+      res.status(200).send(true);
+    
+  } catch (e) {
+    const message = {"title": e.name, "Message:": e.message };
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+}
+
 module.exports = { 
-  loginController,
+  listCategoriesController,
   registerController,
   updateController,
-  verifyUserController
+  detailsCategoryController,
+  deleteCategoryController,
+
+  listSubcategoriesController,
+  registerSubcategoryController,
+  updateSubcategoryController,
+  detailsSubcategoryController,
+  deleteSubcategoryController
 };
