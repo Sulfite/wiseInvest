@@ -13,11 +13,13 @@ app.use(bodyParser.json());
 
 // Importação das Rotas
 const usuariosRoutes = require("./Routes/usuarioRoutes");
-const authenticationRoutes =require("./Routes/authenticationRoutes");
+const authenticationRoutes = require("./Routes/authenticationRoutes");
+const categoriesRoutes = require("./Routes/categoriesRoutes");
 
 // Rotas por modulos
 app.use("/", usuariosRoutes);
 app.use("/auth", authenticationRoutes);
+app.use("/category", categoriesRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
