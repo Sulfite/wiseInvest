@@ -256,5 +256,5 @@ module.exports = {
   registerStateService,
   updateStateSevice,
   detailsStateService,
-  deleteStateService
+  deleteStateService,
 }

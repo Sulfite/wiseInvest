@@ -1,5 +1,6 @@
 const db = require('../db/dbMySql');
 
+
 // Countries
 const registerCountryRepository = async (data) => {
   try {
@@ -120,6 +121,7 @@ module.exports= {
   registerCountryRepository,
   updateCountryRepository,
   detailsCountryRepository,
+
   deleteCountryRepository,
 
   listStatesRepository,
