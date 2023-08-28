@@ -108,6 +108,7 @@ const deleteCountryController = async (req, res, next) => {
   }
 };
 
+
 // States
 const registerStateController = async (req, res, next) => {
   // colocar verificacoes iniciais
@@ -340,4 +341,5 @@ module.exports = {
   updateCityController,
   datailsCityController,
   deleteCityController,
+
 };
