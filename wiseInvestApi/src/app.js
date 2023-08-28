@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const cors = require("cors");
-const port = 3000;
+const port = process.env.PORT_API;
 
 // Usos necessarios
 app.use(cors("*"));
@@ -15,9 +15,11 @@ app.use(bodyParser.json());
 const usuariosRoutes = require("./Routes/usuarioRoutes");
 const authenticationRoutes = require("./Routes/authenticationRoutes");
 const walletRoutes = require("./Routes/walletRoutes");
+const addressRoutes = require("./Routes/addressRoutes");
 
 // Rotas por modulos
 app.use("/", usuariosRoutes);
+app.use("/address", addressRoutes);
 app.use("/auth", authenticationRoutes);
 app.use("/wallet", walletRoutes);
 
