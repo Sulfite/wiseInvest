@@ -116,6 +116,63 @@ const deleteStateRepository = async (id) => {
   }
 }
 
+// Cities
+const registerCityRepository = async (data) => {
+
+  try {
+    const result = await db.query("INSERT INTO dbo.Cities(Name_City, DDD,  ID_State) VALUES (?,?,?)", [data.Name_City, data.DDD, data.ID_State]);
+    return [result[0]["affectedRows"], result[0]["insertId"]];
+  } catch (error) {
+    return error;
+  }
+}
+
+const listCitiesRepository = async () => {
+  try {
+    let result = await db.query(`SELECT *
+                                FROM dbo.Cities;`);
+    return result[0];
+  } catch (error) {
+    return error;
+  }
+}
+
+const detailsCityRepository = async (id) => {
+  try {
+    const result = await db.query(`SELECT *
+                                   FROM dbo.Cities
+                                   WHERE ID_City = ${id}`);
+    return result[0][0];
+  } catch (error) {
+    return [error];
+  }
+}
+
+const updateCityRepository = async (id, data) => {
+  try {
+    const result = await db.query(`UPDATE dbo.Cities
+                                   SET Name_City = ?
+                                      ,DDD       = ?
+                                      ,ID_State  = ?
+                                   WHERE ID_City = ?;`, [data.Name_City, data.DDD, data.ID_State, id]);
+
+    return [result[0]["affectedRows"]];
+  } catch (error) {
+    return error;
+  }
+}
+
+const deleteCityRepository = async (id) => {
+  try {
+    const result = await db.query(`DELETE FROM dbo.Cities 
+                                   WHERE ID_City = ${id}`);
+    
+    return [result[0]["affectedRows"]];
+  } catch (error) {
+    return error;
+  }
+}
+
 module.exports= {
   listCountriesRepository,
   registerCountryRepository,
@@ -128,5 +185,11 @@ module.exports= {
   registerStateRepository,
   updateStateRepository,
   detailsStateRepository,
-  deleteStateRepository
+  deleteStateRepository,
+
+  listCitiesRepository,
+  registerCityRepository,
+  updateCityRepository,
+  detailsCityRepository,
+  deleteCityRepository
 }
