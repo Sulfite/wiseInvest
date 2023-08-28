@@ -30,13 +30,16 @@ const registerService = async (data) => {
   try {
     const db = await usuarioRepositorie.registerRepository(newUser);
 
-    if(db["affectedRows"] === 0) {
-      throw new Error("Not insert");
+    if(db.length === 0) {
+      const exception = new Error('Not insert.');
+      exception.code = 500;
+      throw exception;
     }
 
-    return db;
+    return {"id": db[1]};
   } catch (error) {
-    return error  
+    const message = {"code": error.code, "title": error.name, "message": error.message }
+    return message;
   }
 }
 
@@ -70,11 +73,8 @@ const updateSevice = async (id, data) => {
     if (!isNullOrEmpty(passwordUser)) {
       passwordUser = hash(passwordUser);
     }
-
-    // console.log(typeof(typePerson));
     
     // if ((typePerson !== 'F') || (typePerson !== 'J')) {
-    //   console.log('teste');
     //   const exception = new Error('Check the parameters sent. typePerson 1');
     //   exception.code = 422;
     //   throw exception;
@@ -101,7 +101,7 @@ const updateSevice = async (id, data) => {
     return db;
     
   } catch (error) {
-    let message = {"title": error.name, "Message:": error.message }
+    const message = {"title": error.name, "Message:": error.message }
     return message;
   }
 }
@@ -115,9 +115,141 @@ const verifyUserService = async (id) => {
     return false;
 }
 
+const deleteUserService = async (id) => {
+
+  try {
+    
+    const verify = await verifyUserService(id);
+    
+    if (!verify) {
+      const exception = new Error('Id not found.');
+      exception.code = 404;
+      throw exception;
+    }
+
+    const db = await usuarioRepositorie.deleteRepository(id);
+
+    if(isNullOrEmpty(db.length)) {
+      const exception = new Error('Not delete');
+      exception.code = 500;
+      throw exception;
+    }
+
+    return db;
+
+  } catch (error) {
+    const message = {"code": error.code, "title": error.name, "message": error.message }
+    return message;
+  }
+}
+
+const getUsersPaginationService = async (data) => {
+  const {offset, limit } = data;
+
+  if (isNullOrEmpty(offset) || typeof(offset) != "number") {
+    const exception = new Error('Check the sent offset parameter.');
+    exception.code = 422;
+    throw exception;
+  }
+
+  if (isNullOrEmpty(limit) || typeof(limit) != "number") {
+    const exception = new Error('Check the sent limit parameter.');
+    exception.code = 422;
+    throw exception;
+  }
+  
+  try {
+    const db = await usuarioRepositorie.getUsersPaginationRepository(offset, limit);
+
+    if (db.length === 0) {
+      const exception = new Error('Users not found.');
+      exception.code = 404;
+      throw exception;
+    }
+
+    return db;
+  } catch (error) {
+    const message = {"code": error.code, "title": error.name, "message": error.message}
+    return message;
+  }
+}
+
+const filterUsersService = async (data) => {
+
+  const { name,
+          email,
+          dtBirth,
+          nationalIdentifier,
+          typePerson,
+          idAccessType,
+          active 
+        } = data;
+
+  let parameterSearch = '';
+
+  if (!isNullOrEmpty(name)) {
+    parameterSearch = `Name_user LIKE '%${name}%' , `;
+  }
+
+  if (!isNullOrEmpty(email)) {
+    parameterSearch += `Email_user LIKE '%${email}%' , `;
+  }
+
+  if (!isNullOrEmpty(dtBirth)) {
+    parameterSearch += `dtBirth = '${dtBirth}' , `;
+  }
+  
+  if (!isNullOrEmpty(nationalIdentifier)) {
+    parameterSearch += `nationalIdentifier = '${nationalIdentifier}' , `;
+
+    if (isNullOrEmpty(typePerson)) {
+      if (nationalIdentifier.length > 11) {
+        typePerson = 'J';
+      } else {
+        typePerson = 'F';
+      }
+    }
+  }
+
+  if(!isNullOrEmpty(typePerson)) {
+    parameterSearch += `Type_Person = '${typePerson}' , `;
+  }
+
+  if (!isNullOrEmpty(email)) {
+    parameterSearch += `Email_user LIKE '%${email}%' , `;
+  }
+
+  if (!isNullOrEmpty(idAccessType) && typeof(idAccessType) == 'number') {
+    parameterSearch += `ID_Access_Type= ${idAccessType} , `;
+  }
+
+  if (!isNullOrEmpty(active)) {
+    parameterSearch += `Active_User = ${active}`;
+  }
+
+  parameterSearch = parameterSearch.replaceAll(',', 'AND');
+
+  console.log(parameterSearch);
+
+
+  try {
+    const db = usuarioRepositorie.filterUsersRepository(parameterSearch)
+
+    // return db;
+    return [];
+
+  } catch (error) {
+    const message = {"code": error.code, "title": error.name, "message": error.message};
+    return message;
+  }
+}
+
 module.exports = {
   loginService,
   registerService,
   updateSevice,
-  verifyUserService
+  verifyUserService,
+  deleteUserService,
+  getUsersPaginationService,
+  filterUsersService
 }
