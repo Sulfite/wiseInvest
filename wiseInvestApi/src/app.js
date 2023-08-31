@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 const usuariosRoutes = require("./Routes/usuarioRoutes");
 const authenticationRoutes =  require("./Routes/authenticationRoutes");
 const walletRoutes = require("./Routes/walletRoutes");
+const walletRecommendationRoutes = require("./Routes/walletRecommendationRoutes");
 const addressRoutes = require("./Routes/addressRoutes");
 const investmentBrokerageRoutes = require("./Routes/investmentBrokerageRoutes");
 
@@ -22,6 +23,7 @@ const investmentBrokerageRoutes = require("./Routes/investmentBrokerageRoutes");
 app.use("/", usuariosRoutes);
 app.use("/auth", authenticationRoutes);
 app.use("/wallet", walletRoutes);
+app.use("/walletRecommendation", walletRecommendationRoutes);
 app.use("/address", addressRoutes);
 app.use("/ib", investmentBrokerageRoutes);
 
