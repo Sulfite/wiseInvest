@@ -1,3 +1,4 @@
+const { response } = require('express');
 const db = require('../db/dbMySql');
 
 
@@ -173,6 +174,67 @@ const deleteCityRepository = async (id) => {
   }
 }
 
+// Adresses
+const registerAddressRepository = async (data) => {
+
+  try {
+    const result = await db.query("INSERT INTO dbo.Adresses(Street, District, Number_Street, CD_Postal, Complement, ID_City, ID_User) VALUES (?,?,?,?,?,?,?)", [data.Street, data.District, data.Number_Street, data.CD_Postal, data.Complement, data.ID_City, data.ID_User]);
+    return [result[0]["affectedRows"], result[0]["insertId"]];
+  } catch (error) {
+    return error;
+  }
+}
+
+const listAdressesRepository = async (id) => {
+  try {
+    let result = await db.query(`SELECT *
+                                FROM dbo.Adresses
+                                WHERE ID_User = ${id};`);
+    return result[0];
+  } catch (error) {
+    return error;
+  }
+}
+
+const detailsAddressRepository = async (id) => {
+  try {
+    const result = await db.query(`SELECT *
+                                   FROM dbo.Adresses
+                                   WHERE ID_Address = ${id}`);
+    return result[0][0];
+  } catch (error) {
+    return [error];
+  }
+}
+
+const updateAddressRepository = async (id, data) => {
+  try {
+    const result = await db.query(`UPDATE dbo.Adresses
+                                   SET Street        = ?
+                                      ,District      = ?
+                                      ,Number_Street = ?
+                                      ,CD_Postal     = ?
+                                      ,Complement    = ?
+                                      ,ID_City       = ?
+                                   WHERE ID_Address = ?;`, [data.Street, data.District, data.Number_Street, data.CD_Postal, data.Complement, data.ID_City, id]);
+
+    return [result[0]["affectedRows"]];
+  } catch (error) {
+    return error;
+  }
+}
+
+const deleteAddressRepository = async (id) => {
+  try {
+    const result = await db.query(`DELETE FROM dbo.Adresses 
+                                   WHERE ID_Address = ${id}`);
+    
+    return [result[0]["affectedRows"]];
+  } catch (error) {
+    return error;
+  }
+}
+
 module.exports= {
   listCountriesRepository,
   registerCountryRepository,
@@ -191,5 +253,11 @@ module.exports= {
   registerCityRepository,
   updateCityRepository,
   detailsCityRepository,
-  deleteCityRepository
+  deleteCityRepository,
+
+  listAdressesRepository,
+  registerAddressRepository,
+  updateAddressRepository,
+  detailsAddressRepository,
+  deleteAddressRepository,
 }
