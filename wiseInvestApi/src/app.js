@@ -20,7 +20,6 @@ const investmentBrokerageRoutes = require("./Routes/investmentBrokerageRoutes");
 
 // Rotas por modulos
 app.use("/", usuariosRoutes);
-app.use("/address", addressRoutes);
 app.use("/auth", authenticationRoutes);
 app.use("/wallet", walletRoutes);
 app.use("/address", addressRoutes);
