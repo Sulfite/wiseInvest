@@ -23,14 +23,14 @@ const registerWalletService = async (data) => {
   // Usar funcao de anti injecton
   // Usar função de validacao de json
   
-  const newWallet = { 
-    Name_wallet: data.walletName,
-    Description_Wallet: data.walletDescription,
+  const newWalletrecommendation = { 
+    Name_Recommendation: data.nameRecommendation,
+    Description_Recommendation: data.descriptionRecommendation,
     ID_User: data.idUser
   };
  
   try {
-    const db = await walletRecommendationRepositorie.registerWalletRepository(newWallet);
+    const db = await walletRecommendationRepositorie.registerWalletRepository(newWalletrecommendation);
     if(db.length === 0) {
       const exception = new Error('Not insert.');
       exception.code = 500;
@@ -53,12 +53,12 @@ const updateWalletSevice = async (id, data) => {
       throw exception;
     }
 
-    const { walletName,
-            walletDescription } = data
+    const { nameRecommendation,
+            descriptionRecommendation } = data
     
     const updateWallet = { 
-      Name_Wallet: walletName,
-      Description_Wallet: walletDescription
+      Name_Recommendation: nameRecommendation,
+      Description_Recommendation: descriptionRecommendation
     };
 
     const db = await walletRecommendationRepositorie.updateWalletRepository(id, updateWallet);
@@ -107,9 +107,9 @@ const deleteWalletService = async (id) => {
 }
 
 // Stocks Wallet Recommendation
-const listStocksWalletsService = async (idUser) => {
+const listStocksWalletsService = async (idWallet) => {
   try {
-    const db = await walletRecommendationRepositorie.listWalletsRepository(idUser);
+    const db = await walletRecommendationRepositorie.listStocksWalletsRepository(idWallet);
   
     if(db.length === 0) {
       const exception = new Error('Not selected.');
@@ -129,14 +129,13 @@ const registerStocksWalletService = async (data) => {
   // Usar funcao de anti injecton
   // Usar função de validacao de json
   
-  const newWallet = { 
-    Name_wallet: data.walletName,
-    Description_Wallet: data.walletDescription,
-    ID_User: data.idUser
+  const newStocks = { 
+    CD_Stocks: data.cdStocks,
+    ID_Wallet_Recomendation: data.idWalletRecomendation,
   };
  
   try {
-    const db = await walletRecommendationRepositorie.registerWalletRepository(newWallet);
+    const db = await walletRecommendationRepositorie.registerStocksWalletRepository(newStocks);
     if(db.length === 0) {
       const exception = new Error('Not insert.');
       exception.code = 500;
@@ -159,15 +158,15 @@ const updateStocksWalletSevice = async (id, data) => {
       throw exception;
     }
 
-    const { walletName,
-            walletDescription } = data
+    const { cdStocks,
+            idWalletRecomendation } = data
     
-    const updateWallet = { 
-      Name_Wallet: walletName,
-      Description_Wallet: walletDescription
+    const updateStocks = { 
+      CD_Stocks: cdStocks,
+      ID_Wallet_Recomendation: idWalletRecomendation
     };
 
-    const db = await walletRecommendationRepositorie.updateWalletRepository(id, updateWallet);
+    const db = await walletRecommendationRepositorie.updateStocksWalletRepository(id, updateStocks);
     if(db.length === 0) {
       const exception = new Error('Not updated.');
       exception.code = 500;
@@ -182,7 +181,7 @@ const updateStocksWalletSevice = async (id, data) => {
 
 const detailsStocksWalletService = async (id) => {
   try {
-    const db = await walletRecommendationRepositorie.detailsWalletRepository(id);
+    const db = await walletRecommendationRepositorie.detailsStocksWalletRepository(id);
     if(db.length === 0) {
       const exception = new Error('Not delete');
       exception.code = 500;
@@ -198,7 +197,7 @@ const detailsStocksWalletService = async (id) => {
 
 const deleteStocksWalletService = async (id) => {
   try {
-    const db = await walletRecommendationRepositorie.deleteWalletRepository(id);
+    const db = await walletRecommendationRepositorie.deleteStocksWalletRepository(id);
     if(db.length === 0) {
       const exception = new Error('Not delete');
       exception.code = 500;

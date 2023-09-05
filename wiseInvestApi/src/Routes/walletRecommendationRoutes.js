@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const { isValidToken } = require("../Ultils/Ultils");
-const walletRecommendationController = require("../Controllers/walletRecommendationController");
+const { isValidToken } = require('../Ultils/Ultils');
+const walletRecommendationController = require('../Controllers/walletRecommendationController');
 
 // Wallet Recomendation
 router.post('/registerWallet', walletRecommendationController.registerWalletController);
