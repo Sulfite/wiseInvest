@@ -106,9 +106,9 @@ const deleteWalletController = async (req, res, next) => {
 
 // Stocks Wallet Recommendation
 const listStocksWalletsController = async (req, res, next) => {
-  const _idUser = req.params.id;
+  const _idWallet = req.params.id;
   try {
-    const response = await walletRecommendationServices.listWalletsService(_idUser);
+    const response = await walletRecommendationServices.listStocksWalletsService(_idWallet);
 
     if (response.code > 0 && response.title === 'Error') {  
       const exception = new Error(response.message);
@@ -129,7 +129,7 @@ const registerStocksWalletController = async (req, res, next) => {
   const data = req.body;
 
   try {
-    const response = await walletRecommendationServices.registerWalletService(data);
+    const response = await walletRecommendationServices.registerStocksWalletService(data);
     if (response.code > 0 && response.title === 'Error') {  
       const exception = new Error(response.message);
       exception.code = response.code;
@@ -154,7 +154,7 @@ const updateStocksWalletController = async (req, res, next) => {
       throw exception;
     }
 
-    const response = await walletRecommendationServices.updateWalletSevice(_id, data);
+    const response = await walletRecommendationServices.updateStocksWalletSevice(_id, data);
     res.status(200).send(response);
   } catch (e) {
     const message = {"title": e.name, "Message:": e.message }
@@ -171,7 +171,7 @@ const detailsStocksWalletController = async (req, res, next) => {
       throw exception;
     }
 
-    const response = await walletRecommendationServices.detailsWalletService(_id);
+    const response = await walletRecommendationServices.detailsStocksWalletService(_id);
     res.status(200).send(response);
 
   } catch (e) {
@@ -189,7 +189,7 @@ const deleteStocksWalletController = async (req, res, next) => {
       throw exception;
     }
 
-    const response = await walletRecommendationServices.deleteWalletService(_id);
+    const response = await walletRecommendationServices.deleteStocksWalletService(_id);
     if (response.code > 0 && response.title === 'Error') {
       const exception = new Error(response.message);
       exception.code = response.code;
