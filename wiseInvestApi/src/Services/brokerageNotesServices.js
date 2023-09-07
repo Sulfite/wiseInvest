@@ -38,6 +38,8 @@ const listsAllBnUserWalletService = async (idUser, idWallet) => {
 const registerBnService = async (data) => {
   // Usar funcao de anti injecton
   // Usar função de validacao de json
+
+  // Fazer verificação do id usuario enviado é igual ao da autenticação
   
   const newBn = { 
     CD_Stocks: data.cdStocks,
@@ -49,7 +51,7 @@ const registerBnService = async (data) => {
     ID_Investment_Brokerage: data.idInvestmentBrokerage,
     ID_Wallet: data.idWallet,
     ID_Category: data.idCategory,
-    ID_Subcategor: data.idSubcategory
+    ID_Subcategory: data.idSubcategory
   };
 
   try {
@@ -72,7 +74,6 @@ const updateBnSevice = async (id, data) => {
   // Fazer requisição para verificar se o usuario existe
 
   try {
-
     if (isNullOrEmpty(data)) {
       const exception = new Error('9003.Não foi encontrado usuário para ser alterados.');
       exception.code = 404;
@@ -95,14 +96,12 @@ const updateBnSevice = async (id, data) => {
       Amount: amount,
       DT_Purchase: dtPurchase,
       DT_Sale: dtSale,
-      ID_User: idUser,
       ID_Investment_Brokerage: idInvestmentBrokerage,
       ID_Wallet: idWallet,
       ID_Category: idCategory,
-      ID_Subcategor: idSubcategory
+      ID_Subcategory: idSubcategory
     };
-
-
+    
     const db = await brokerageNotesRepositorie.updateBnRepository(id, updateBn);
 
     if(db.length === 0) {
@@ -110,9 +109,8 @@ const updateBnSevice = async (id, data) => {
       exception.code = 500;
       throw exception;
     }
-
     return db;
-    
+
   } catch (error) {
     const message = {"title": error.name, "Message:": error.message }
     return message;
@@ -120,16 +118,13 @@ const updateBnSevice = async (id, data) => {
 }
 
 const detailsBnService = async (id) => {
-
   try {
     const db = await brokerageNotesRepositorie.detailsBnRepository(id);
-
     if(db.length === 0) {
       const exception = new Error('Not delete');
       exception.code = 500;
       throw exception;
     }
-
     return db;
 
   } catch (error) {
@@ -139,7 +134,6 @@ const detailsBnService = async (id) => {
 }
 
 const deleteBnService = async (id) => {
-
   try {
     const db = await brokerageNotesRepositorie.deleteBnRepository(id);
 
@@ -148,9 +142,8 @@ const deleteBnService = async (id) => {
       exception.code = 500;
       throw exception;
     }
-
+    
     return db;
-
   } catch (error) {
     const message = {"code": error.code, "title": error.name, "message": error.message }
     return message;

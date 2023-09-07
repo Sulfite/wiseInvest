@@ -2,9 +2,9 @@ const db = require('../db/dbMySql');
 
 const listAllBnUserRepository = async (idUser) => {
   try {
-    const result = await db.query(`SELECT *
-                                FROM dbo.Brokerage_Notes
-                                WHERE ID_User = ${idUser};`);
+    const result = await db.query(`SELECT CD_Stocks, Price, Amount, DT_Purchase, DT_Sale, ID_User, ID_Investment_Brokerage, ID_Wallet, ID_Category, ID_Subcategory
+                                   FROM dbo.Brokerage_Notes
+                                   WHERE ID_User = ${idUser};`);
     return result[0];
   } catch (error) {
     return error;
@@ -13,10 +13,10 @@ const listAllBnUserRepository = async (idUser) => {
 
 const listsAllBnUserWalletRepository = async (idUser, idWallet) => {
   try {
-    const result = await db.query(`SELECT *
-                                FROM dbo.Brokerage_Notes
-                                WHERE ID_User   = ${idUser}
-                                  AND ID_Wallet = ${idWallet};`);
+    const result = await db.query(`SELECT CD_Stocks, Price, Amount, DT_Purchase, DT_Sale, ID_User, ID_Investment_Brokerage, ID_Wallet, ID_Category, ID_Subcategory
+                                   FROM dbo.Brokerage_Notes
+                                   WHERE ID_User   = ${idUser}
+                                     AND ID_Wallet = ${idWallet};`);
     return result[0];
   } catch (error) {
     return error;

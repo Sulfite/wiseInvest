@@ -75,9 +75,7 @@ const updateBnController = async (req, res, next) => {
       exception.code = 422;
       throw exception;
     }
-
     const response = await brokerageNotesServices.updateBnSevice(_id, data);
-
     res.status(200).send(response);
 
   } catch (e) {
@@ -86,17 +84,16 @@ const updateBnController = async (req, res, next) => {
   }
 }
 
+
+
 const detailsBnController = async (req, res, next) => {
-
   const _id = req.params.id;
-
   try {
     if (isNullOrEmpty(_id)) {
       const exception = new Error('Check the parameters sent.');
       exception.code = 422;
       throw exception;
     }
-
     const response = await brokerageNotesServices.detailsBnService(_id);
     res.status(200).send(response);
 

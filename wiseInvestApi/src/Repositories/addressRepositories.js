@@ -95,10 +95,10 @@ const detailsStateRepository = async (id) => {
 const updateStateRepository = async (id, data) => {
   try {
     const result = await db.query(`UPDATE dbo.States
-                                 SET Name_State = ?
-                                    ,Abbreviation = ?
-                                    ,ID_Country       = ?
-                                 WHERE ID_State = ?;`, [data.Name_State, data.Abbreviation, data.ID_Country, id]);
+                                   SET Name_State = ?
+                                      ,Abbreviation = ?
+                                      ,ID_Country       = ?
+                                   WHERE ID_State = ?;`, [data.Name_State, data.Abbreviation, data.ID_Country, id]);
 
     return [result[0]["affectedRows"]];
   } catch (error) {

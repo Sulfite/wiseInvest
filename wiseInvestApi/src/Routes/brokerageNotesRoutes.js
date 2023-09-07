@@ -4,7 +4,6 @@ const router = express.Router();
 const { isValidToken } = require("../Ultils/Ultils");
 const brokerageNotesController = require("../Controllers/brokerageNotesController");
 
-// Usuarios
 router.post('/register', brokerageNotesController.registerBnController);
 router.put('/update/:id', brokerageNotesController.updateBnController);
 router.get('/lists/:id',  brokerageNotesController.listsAllBnUserController);
