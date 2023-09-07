@@ -19,6 +19,7 @@ const walletRecommendationRoutes = require("./Routes/walletRecommendationRoutes"
 const addressRoutes = require("./Routes/addressRoutes");
 const investmentBrokerageRoutes = require("./Routes/investmentBrokerageRoutes");
 const phoneRoutes = require("./Routes/phoneRoutes");
+const brokerageNotesRoutes = require("./Routes/brokerageNotesRoutes");
 
 // Rotas por modulos
 app.use("/", usuariosRoutes);
@@ -28,6 +29,7 @@ app.use("/walletRecommendation", walletRecommendationRoutes);
 app.use("/address", addressRoutes);
 app.use("/ib", investmentBrokerageRoutes);
 app.use("/phone", phoneRoutes);
+app.use("/bn", brokerageNotesRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
