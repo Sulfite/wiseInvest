@@ -19,6 +19,7 @@ const walletRoutes = require("./Routes/walletRoutes");
 const walletRecommendationRoutes = require("./Routes/walletRecommendationRoutes");
 const investmentBrokerageRoutes = require("./Routes/investmentBrokerageRoutes");
 const phoneRoutes = require("./Routes/phoneRoutes");
+const brokerageNotesRoutes = require("./Routes/brokerageNotesRoutes");
 const categoriesRoutes = require("./Routes/categoriesRoutes");
 const addressRoutes = require("./Routes/addressRoutes");
 
@@ -31,6 +32,7 @@ app.use("/walletRecommendation", walletRecommendationRoutes);
 app.use("/address", addressRoutes);
 app.use("/ib", investmentBrokerageRoutes);
 app.use("/phone", phoneRoutes);
+app.use("/bn", brokerageNotesRoutes);
 app.use("/category", categoriesRoutes);
 
 app.listen(port, () => {
