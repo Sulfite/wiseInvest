@@ -1,0 +1,176 @@
+/* // padrão 16 => calculo 16 * (porcentagem) => 0,9375 = 15px
+// rem utiliza o font size da aplicação */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --white: #FFFFFF;
+    --white-opacity-005: #FFFFFF80;
+    --white-opacity-002: #FFFFFF33;
+
+    --blue-900-037: #1f26875e; 
+
+    --gray-100: #e1e1e6;
+    --gray-300: #a8a8b3;
+    --gray-700: #323238;
+    --gray-800: #29292e;
+    --gray-850: #1f2729;
+    --gray-900: #121214;
+
+    --red-900: #FF0000;
+    --green-900: #14b814;
+
+    /* Palette color site */
+    --gold-500: #F0A500;
+    --black: #1B1A17;
+    --orange-600: #E45826;
+    --beige-300: #E6D5B8;
+
+    /* Beige tonbalities  */
+    --beige-500: #c8af83;
+
+    /* Gold tonbalities  */
+    --gold-900: #c88400; /* 900 */
+    --gold-800: #d58f00; /* 800 */
+    --gold-700: #e39a00; /* 700 */
+    --gold-300: #fdb01a; /* 300 */
+    --gold-200: #ffbc2b; /* 200 */
+    --gold-100: #ffc839; /* 100 */
+
+    /* violet tonbalities  */
+    --violet-900: #200040;
+    --violet-800: #400080;
+    --violet-500: #7F00FF;
+    --violet-400: #c489ff;
+
+    --font-primary: 'Playfair Display', serif;
+    --font-secondary: 'Arvo', serif;
+    --font-tertiary: 'Roboto', sans-serif;
+}
+
+@media (max-width: 1080px) {
+    html {
+        font-size: 93.75%;
+    }
+}
+
+@media (max-width: 720px) {
+    html {
+        font-size: 87.5%;
+    }
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+	  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+	  sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+    background-image: linear-gradient(
+        65.49deg,
+        var(--violet-800) 33%,
+        var(--violet-500) 120%,
+        var(--violet-400) 140%
+    );
+}
+
+body, input, textarea, select, button {
+    font: 400 1rem var(--font-tertiary);
+}
+
+input {
+    border-radius:  0.5rem;
+    padding: 0.5rem;
+    border-style: none;
+
+    background: var(--white-opacity-005);
+    box-shadow: 0 8px 32px 0 var(--blue-900-037);
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+}
+
+input::placeholder {
+    color: var(--white);
+    opacity: 1; /* Firefox */
+}
+  
+input::-ms-input-placeholder { /* Edge 12 -18 */
+    color: var(--white);
+}
+
+button {
+    border-style: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+
+    font-family: var(--font-tertiary);
+}
+
+h1 {
+    margin: 0.5rem;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+}
+
+.card {
+    background: var(--white-opacity-002);
+    box-shadow: 0 8px 32px 0 var(--blue-900-037);
+    backdrop-filter: blur( 20px );
+    -webkit-backdrop-filter: blur( 20px );
+    border-radius: 1rem;
+}
+
+.btn {
+    background-color: var(--gold-300);
+    color: var(--black);
+    font-weight: bold;
+    opacity: 1.0;
+    transition: opacity 0.3s;
+}
+
+.btn > svg {
+    margin-right: 0.5rem;
+}
+
+.btn-danger {
+    background-color: var(--red-900);
+}
+
+.btn-success {
+    background-color: var(--green-900);
+}
+
+.btn-danger, 
+.btn-success {
+    color: var(--beige-300);
+    opacity: 1.0;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+.btn-danger:hover {
+    opacity: 0.80;
+    color: var(--white);
+    transition-timing-function: ease-in;
+}
+
+.btn:hover,
+.btn-success:hover {
+    transition-timing-function: ease-in;
+    opacity: 0.80;
+    color: var(--white);
+}

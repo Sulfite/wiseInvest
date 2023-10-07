@@ -1,0 +1,85 @@
+.containerLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    padding: 2rem 0.5rem;
+    text-align: center;
+}
+
+.card > h1 {
+    font-family: var(--font-primary);
+    color: var(--gold-300);
+    font-weight: 700;
+}
+
+.containerFormLogin > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 1rem 1rem;
+}
+
+.containerFormLogin > form > input,
+.containerFormLogin > form > button {
+    margin: 0.5rem;
+    width: 25vw;
+}
+
+.containerRegister {
+    display: grid;
+    grid-template-areas:
+      'register register'
+      'rlGoogle rlFacebook';
+    gap: .5rem;
+    align-items: center;
+    margin: 1rem 1rem;
+    padding: 0.50rem;
+    border-top: 0.25rem solid var(--gray-100);
+}
+
+#register { 
+    grid-area: register;
+}
+
+#rlGoogle { 
+    grid-area: rlGoogle;
+}
+
+#rlFacebook { 
+    grid-area: rlFacebook;
+}
+
+.containerRegister > button {
+    margin: 0.20rem 0;
+    border-radius:  0.25rem;
+}
+
+@media (min-width: 1080px) {
+    .containerFormLogin > form > input,
+    .containerFormLogin > form > button {
+        margin: 0.5rem;
+        width: 25vw;
+    }   
+}
+
+@media (max-width: 1080px) {
+    .containerFormLogin > form > input,
+    .containerFormLogin > form > button {
+        margin: 0.5rem;
+        width: 25vw;
+    }   
+}
+
+@media (max-width: 720px) {
+    .containerFormLogin > form > input,
+    .containerFormLogin > form > button {
+        margin: 0.5rem;
+        width: 50vw;
+    }   
+}
