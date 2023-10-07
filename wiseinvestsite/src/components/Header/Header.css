@@ -1,0 +1,33 @@
+.containerHeader {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+    padding: 1rem;
+
+    color: var(--white);
+}
+
+.logo {
+    color: var(--gold-300);
+}
+
+nav {
+    height: 100%;
+}
+
+nav > a {
+    font-size: .95rem;
+    font-weight: 800;
+    margin: auto 0.25rem;
+
+    transition: opacity 0.3s;
+}
+
+
+a:hover {
+    transition-timing-function: ease-in;
+    opacity: 0.80;
+    color: var(--gold-300);
+}
