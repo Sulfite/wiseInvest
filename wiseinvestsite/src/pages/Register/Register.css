@@ -1,0 +1,12 @@
+.containerFormRegister {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.containerFormRegister > h1 {
+	font-family: var(--font-primary);
+    color: var(--gold-300);
+    font-weight: 700;
+}

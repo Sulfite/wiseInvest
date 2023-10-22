@@ -1,0 +1,38 @@
+.plans {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.plan {
+	width: 25vw;
+	height: 17rem;
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	padding: 0.5rem;
+}
+
+.plan > ul  {
+	list-style-type: none;
+}
+
+.plan > button  {
+	margin-top: 0.5rem;
+}
+
+.planReplacementContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.currentPlan > h1 {
+	font-family: var(--font-primary);
+	color: var(--gold-300);
+	font-weight: 700;	
+}

@@ -1,0 +1,40 @@
+.btn {
+    background-color: var(--gold-300);
+    color: var(--black);
+    font-weight: bold;
+    opacity: 1.0;
+    transition: opacity 0.3s;
+}
+
+.btn > svg {
+    margin-right: 0.5rem;
+}
+
+.btn-danger {
+    background-color: var(--red-900);
+}
+
+.btn-success {
+    background-color: var(--green-900);
+}
+
+.btn-danger, 
+.btn-success {
+    color: var(--beige-300);
+    opacity: 1.0;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+.btn-danger:hover {
+    opacity: 0.80;
+    color: var(--white);
+    transition-timing-function: ease-in;
+}
+
+.btn:hover,
+.btn-success:hover {
+    transition-timing-function: ease-in;
+    opacity: 0.80;
+    color: var(--white);
+}
