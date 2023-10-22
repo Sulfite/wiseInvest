@@ -5,29 +5,12 @@
     align-items: center;
 }
 
-.card {
-    padding: 2rem 0.5rem;
-    text-align: center;
-}
-
-.card > h1 {
-    font-family: var(--font-primary);
-    color: var(--gold-300);
-    font-weight: 700;
-}
-
 .containerFormLogin > form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     margin: 1rem 1rem;
-}
-
-.containerFormLogin > form > input,
-.containerFormLogin > form > button {
-    margin: 0.5rem;
     width: 25vw;
 }
 
