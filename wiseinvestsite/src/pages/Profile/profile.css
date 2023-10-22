@@ -1,0 +1,57 @@
+.containerProfile {
+    display: grid;
+    
+    grid-template-areas:
+      'basic address address'
+      'phone phone phone'
+      'plan plan plan';
+    gap: 1rem;
+
+    padding: 1rem;
+    align-items: center;
+}
+
+.infoBasic {
+    grid-area: basic;
+    width: 100%;
+    height: 100%;
+}
+
+.infoAddress {
+    grid-area: address;
+}
+
+.infoPhone {
+    grid-area: phone;
+}
+
+.infoPlan {
+    grid-area: plan;
+}
+
+/* @media (max-width: 1080px) {
+    html {
+        font-size: 93.75%;
+    }
+} */
+
+@media (max-width: 720px) {
+    .containerProfile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* .infoBasic {
+    grid-area: basic;
+}
+
+.infoAddress {
+    grid-area: address;
+}
+
+.infoPlan {
+    grid-area: plan;
+}
+ */

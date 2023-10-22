@@ -1,0 +1,82 @@
+.containerAddress {
+	padding: 1rem;
+}
+
+.containerAddress > h1 { 
+	font-size: 1.5rem;
+	height: 10%;
+}
+
+.containerAddress > form { 
+	width: 100%;
+	height: 90%;
+	display: grid;
+	grid-template-areas: 
+	'cdPostal       coutriesUser   statesUser     statesUser'
+	'citytUser      citytUser      districtUser   districtUser'
+    'address        address        address        numberStret'
+	'complementUser complementUser complementUser complementUser'
+	'buttonsControl buttonsControl buttonsControl buttonsControl';
+
+	grid-gap: .5rem;
+
+	/* justify-content: center; */
+	align-items: center;
+}
+
+/* .cdPostal,
+.address,
+.numberStret,
+.districtUser,
+.complementUser,
+.coutriesUser,
+.statesUser,
+.citytUser {
+	width: 100%;
+} */
+
+.cdPostal {
+	grid-area: cdPostal;
+}
+
+.address {
+	grid-area: address;
+}
+
+.numberStret {
+	grid-area: numberStret;
+}
+
+.districtUser {
+	grid-area: districtUser;
+}
+
+.complementUser {
+	grid-area: complementUser ;
+}
+
+.coutriesUser {
+	grid-area: coutriesUser;
+}
+
+.statesUser {
+	grid-area: statesUser;
+}
+
+.citytUser {
+	grid-area: citytUser;
+}
+
+.buttonsControlAddres {
+	grid-area: buttonsControl;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+	margin: 0.5rem;
+}
+
+.buttonsControlAddres > button {
+	width: 25vw;
+}
