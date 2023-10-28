@@ -5,14 +5,14 @@ select.form-control {
 
     width: 100%;
 
-    background: var(--white-opacity-005);
+    /* background: var(--white-opacity-005);
     box-shadow: 0 8px 32px 0 var(--blue-900-037);
     backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 10px );
-    color: var(--white);
+    color: var(--white); */
 }
 
 select.form-control > option {
     color: var(--white);
-    background: var(--violet-400);
+    background: var(--violet-900);
 }

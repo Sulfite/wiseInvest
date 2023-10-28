@@ -1,0 +1,7 @@
+.containerUsers {
+	padding: 1.5rem;
+}
+
+.userItem {
+	background-color: var(--white);
+}
