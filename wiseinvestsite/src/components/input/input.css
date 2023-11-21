@@ -5,7 +5,9 @@ input.form-control {
 
     width: 100%;
 
-    color: var(--violet-900);
+    color: var(--white);
+
+    background: var(--violet-1000);
 
     /* background: var(--white-opacity-005);
     box-shadow: 0 8px 32px 0 var(--blue-900-037);
@@ -19,6 +21,10 @@ input.form-control::placeholder {
 }
   
 input.form-control::-ms-input-placeholder { /* Edge 12 -18 */
+    color: var(--white);
+}
+
+label {
     color: var(--white);
 }
 
@@ -43,4 +49,13 @@ input.form-control-checkbox {
 
  input + label {
     margin-left: 0.4rem;
+}
+
+
+input.form-control:disabled {
+    filter: brightness(.39);
+}
+
+input.form-control:read-only {
+    filter: brightness(.39);
 }

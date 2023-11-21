@@ -71,7 +71,7 @@ export const FormAddres = () => {
             <Form action="" method="post">
                 <div className='cdPostal'>
                     <Input
-                        placeholder={"CEP: "}
+                        
                         label={"CEP: "}
                         name='cdPostalUser'
                         type='text'

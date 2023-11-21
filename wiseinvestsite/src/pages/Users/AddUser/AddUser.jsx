@@ -9,6 +9,8 @@ import { ValidationError } from "yup";
 // import { useContext } from "react";
 // import { AddUserContext } from "../context/context";
 
+import './addUser.css';
+
 const initialForm = {
     nameUser: "",
     userPay: "",
@@ -22,16 +24,9 @@ const typeUser = [
     {id: 4, description: "Free"},
 ];
 
-export const AddUser = () => {
-    // const [isAddUser, setIsAddUser] = useContext(AddUserContext);
-    
-    const [isAddUser, setIsAddUser] = useState(true);
+export const AddUser = ({ dropdown }) => {
     const [form, setForm] = useState(initialForm);
     const [errors, setErrors] = useState({});
-    
-    const clickHandlerCancel = () => {
-        setIsAddUser(false);
-    };
 
     const validate = async () => {
         try {
@@ -58,10 +53,8 @@ export const AddUser = () => {
     }, [form]);
 
     return (
-        <div className='card containerAddUser'>
+        <div className='containerAddUser'>
             <Form>
-                {/* <span>{isAddUser}</span> */}
-
                 <Input
                     placeholder={"Nome: "}
                     label={"Nome: "}
@@ -91,7 +84,7 @@ export const AddUser = () => {
                 <div className='controlButtonAddUser'>
                     <Button
                         className='btn'
-                        onClick={clickHandlerCancel}
+                        onClick={() => dropdown(false)}
                     >
                         Cancelar
                     </Button>
