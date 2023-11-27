@@ -106,29 +106,34 @@ const users = [
     {
         name: "Vinicius Moreira Hungaro",
         perfil: "Master",
-    }
+    },
 ];
 
 export const Users = () => {
-    const [isAddUser, setIsAddUser] = useState(false);
-
     return (
         <div className='container containerUsers'>
             <div className='userList'>
-                <ItemUser
-                    name={"Nome"}
-                    perfil={"Perfil"}
-                    action={"Ações"}
-                    header={true}
-                />
-                {users.map((x) => {
-                    return (
+                <table>
+                    {/* <tr> */}
                         <ItemUser
-                            name={x.name}
-                            perfil={x.perfil}
+                            name={"Nome"}
+                            perfil={"Perfil"}
+                            action={"Ações"}
+                            header={true}
                         />
-                    );
-                })}
+                    {/* </tr> */}
+
+                    {/* <tr> */}
+                        {users.map((x) => {
+                            return (
+                                <ItemUser
+                                    name={x.name}
+                                    perfil={x.perfil}
+                                />
+                            );
+                        })}
+                    {/* </tr> */}
+                </table>
             </div>
         </div>
     );

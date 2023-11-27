@@ -4,6 +4,7 @@
     grid-template-areas: 'name name profile actions'
                          'addUser addUser addUser addUser';
     align-items: center;
+    
     margin: .5rem;
     padding: 0.5rem;
 
@@ -12,40 +13,19 @@
 
     color: var(--white);
     border-bottom: solid .2rem var(--white);
-
-    /* justify-content: center; */
-    align-items: center;
 }
 
-
-.itemName {
-    grid-area: name;
-}
-
-.itemProfile {
-    grid-area: profile;
-}
-
-.itemButon {
-    grid-area: actions;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.itemButon>button {
-    margin: 0.5rem;
-}
-
+.itemName,
 .itemNameHeader {
     grid-area: name;
 }
 
+.itemProfile,
 .itemProfileHeader {
     grid-area: profile;
 }
 
+.itemButon,
 .itemButonHeader {
     grid-area: actions;
     display: flex;
@@ -54,6 +34,7 @@
     align-items: center;
 }
 
+.itemButon > button,
 .itemButonHeader>button {
     margin: 0.5rem;
 }

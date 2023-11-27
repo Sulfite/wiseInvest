@@ -53,10 +53,11 @@ export const AddUser = ({ dropdown }) => {
     }, [form]);
 
     return (
+        <td>
+
         <div className='containerAddUser'>
             <Form>
                 <Input
-                    placeholder={"Nome: "}
                     label={"Nome: "}
                     name='nameUser'
                     type='text'
@@ -73,7 +74,6 @@ export const AddUser = ({ dropdown }) => {
                 />
 
                 <Input
-                    placeholder={"Pago "}
                     label={"Pago "}
                     name='payUser'
                     type='checkbox'
@@ -92,5 +92,6 @@ export const AddUser = ({ dropdown }) => {
                 </div>
             </Form>
         </div>
+        </td>
     );
 };

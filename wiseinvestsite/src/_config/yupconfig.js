@@ -73,4 +73,7 @@ export const FormValidations = yup.object().shape({
         .string()
         // .oneOf(["Master", "Analista", "Premium", "Free"])
         .required('Type user is required.'),
+    // payUser: yup
+    //     .bool()
+    //     .oneOf([false], 'Mensagem')
 })
