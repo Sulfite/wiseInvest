@@ -7,6 +7,7 @@ import { Header } from "../components/Header/Header";
 import { Register } from "../pages/Register/Register";
 
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
+import { Wallets } from "../pages/Wallets/Wallets";
 
 export const router = createBrowserRouter([
     {
@@ -44,7 +45,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/Wallets",
-                element: <></>,
+                element: <Wallets />,
                 errorElement: <ErrorBoundary />
             },
             {
