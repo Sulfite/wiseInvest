@@ -1,50 +1,49 @@
-import { useEffect, useState } from 'react';
-import { Form } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import { Form } from "react-router-dom";
 
-import { FormValidations } from '../../../_config/yupconfig';
-import { ValidationError } from 'yup';
+import { FormValidations } from "../../../_config/yupconfig";
+import { ValidationError } from "yup";
 
-import Button from '../../../components/Button/Button'
-import Select from '../../../components/Select/Select'
+import Button from "../../../components/Button/Button";
+import Select from "../../../components/Select/Select";
 
-import './formPhone.css'
-import Input from '../../../components/input/Input';
+import "./formPhone.css";
+import Input from "../../../components/input/Input";
 
 const pais = [
-    {id: 1, description: 'Brasil'},
-    {id: 2, description: 'Estados Unidos'},
+    { id: 1, description: "Brasil" },
+    { id: 2, description: "Estados Unidos" },
 ];
 
 const estados = [
-    {id: 1, description: 'SP'},
-    {id: 2, description: 'RJ'},
+    { id: 1, description: "SP" },
+    { id: 2, description: "RJ" },
 ];
 
 const cidades = [
-    {id: 1, description: 'Tupã'},
-    {id: 2, description: 'São Paulo'},
-    {id: 3, description: 'Rio de Janeiro'}
+    { id: 1, description: "Tupã" },
+    { id: 2, description: "São Paulo" },
+    { id: 3, description: "Rio de Janeiro" },
 ];
 
 const tipo = [
-    {id: 1, description: 'Residencial'},
-    {id: 2, description: 'Celular'}
+    { id: 1, description: "Residencial" },
+    { id: 2, description: "Celular" },
 ];
 
 const initialForm = {
-    typePhoneUser: '',
-    numberPhoneUser: '',
-    statesPhoneUser: '',
-    cityPhoneUser: '',
-    coutriesPhoneUser: ''
+    typePhoneUser: "",
+    numberPhoneUser: "",
+    statesPhoneUser: "",
+    cityPhoneUser: "",
+    coutriesPhoneUser: "",
 };
 
 export const FormPhone = () => {
-    
     const [form, setForm] = useState(initialForm);
     const [errors, setErrors] = useState({});
-    
-    const validate = async () => { 
+
+    const validate = async () => {
         try {
             await FormValidations.validate(form, { abortEarly: false });
             setErrors({});
@@ -69,17 +68,20 @@ export const FormPhone = () => {
     }, [form]);
 
     return (
-        <div className="card containerPhone">
-            <h1>
-                Telefone
-            </h1>
-            <Form  action="" method="post">
+        <div className='card containerPhone'>
+            <h1>Telefone</h1>
+            <Form
+                action=''
+                method='post'
+            >
                 <div>
                     <Select
                         label={"Tipo: "}
                         name='typePhoneUser'
                         selectOptions={tipo}
-                        onChange={(e) => setInput({ typePhoneUser: e.target.value })}
+                        onChange={(e) =>
+                            setInput({ typePhoneUser: e.target.value })
+                        }
                         error={errors.typePhoneUser}
                     />
                 </div>
@@ -88,7 +90,9 @@ export const FormPhone = () => {
                         label={"País: "}
                         name='coutriesPhoneUser'
                         selectOptions={pais}
-                        onChange={(e) => setInput({ coutriesPhoneUser: e.target.value })}
+                        onChange={(e) =>
+                            setInput({ coutriesPhoneUser: e.target.value })
+                        }
                         error={errors.coutriesPhoneUser}
                     />
                 </div>
@@ -98,7 +102,9 @@ export const FormPhone = () => {
                         label={"Estado: "}
                         name='statesPhoneUser'
                         selectOptions={estados}
-                        onChange={(e) => setInput({ statesPhoneUser: e.target.value })}
+                        onChange={(e) =>
+                            setInput({ statesPhoneUser: e.target.value })
+                        }
                         error={errors.statesPhoneUser}
                     />
                 </div>
@@ -108,7 +114,9 @@ export const FormPhone = () => {
                         label={"Cidade: "}
                         name='cityPhonetUser'
                         selectOptions={cidades}
-                        onChange={(e) => setInput({ cityPhonetUser: e.target.value })}
+                        onChange={(e) =>
+                            setInput({ cityPhonetUser: e.target.value })
+                        }
                         error={errors.cityPhonetUser}
                     />
                 </div>
@@ -123,26 +131,22 @@ export const FormPhone = () => {
                     />
                 </div>
                 <div>
-                <Input
+                    <Input
                         placeholder={"Número: "}
                         label={"Número: "}
                         name='phoneNumberUser'
                         type='tel'
-                        onChange={(e) => setInput({ phoneNumberUser: e.target.value })}
+                        onChange={(e) =>
+                            setInput({ phoneNumberUser: e.target.value })
+                        }
                         error={errors.phoneNumberUser}
                     />
                 </div>
-                <div className="buttonsControlPhone">
-                    <Button className="btn">
-                        Cancelar
-                    </Button>
-                    <Button className="btn-success">
-                        Salvar
-                    </Button>
+                <div className='buttonsControlPhone'>
+                    <Button className='btn'>Cancelar</Button>
+                    <Button className='btn-success'>Salvar</Button>
                 </div>
-
-
             </Form>
         </div>
-    )
-}
+    );
+};

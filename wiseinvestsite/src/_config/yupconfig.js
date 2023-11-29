@@ -68,4 +68,9 @@ export const FormValidations = yup.object().shape({
     citytUser: yup
         .string()
         .required('City is required.'),
+    titleWallet: yup
+        .string()
+        .required('Title wallet is required.')
+        .min(3, 'Minimum 3 chars.')
+        .max(15, 'Max 30 chars'),
 })

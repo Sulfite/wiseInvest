@@ -38,3 +38,17 @@
     opacity: 0.80;
     color: var(--white);
 }
+
+.nBtn {
+    background-color: transparent;
+    color: var(--white);
+    font-weight: bold;
+    opacity: 1.0;
+    transition: opacity 0.3s;
+}
+
+.nBtn:hover {
+    transition-timing-function: ease-in;
+    opacity: 0.80;
+    color: var(--gold-300);
+}
