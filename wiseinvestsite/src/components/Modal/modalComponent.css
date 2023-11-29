@@ -8,3 +8,7 @@
     outline: none;
     padding: 20px;
 }
+
+.ReactModal__Overlay {
+    background-color: rgba(255, 255, 255, 0.55) !important;
+}
