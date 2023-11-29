@@ -1,0 +1,22 @@
+.containerTitle {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.containerFormModalAdd {
+	color: var(--white);
+}
+
+.buttonsControlWallet {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-around;
+	width: 100%;
+	padding: .5rem;
+}
