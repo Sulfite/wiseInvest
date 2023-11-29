@@ -13,7 +13,6 @@ import Button from "../../../../components/Button/Button";
 import "./modalAddWallet.css";
 
 export const ModalAddWallet = ({ open, close }) => {
-
     const customStyles = {
         content: {
             top: "50%",
@@ -22,6 +21,7 @@ export const ModalAddWallet = ({ open, close }) => {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
+            width: "50%"
         },
     };
 
@@ -59,7 +59,7 @@ export const ModalAddWallet = ({ open, close }) => {
 
     const handlerClickSalvar = () => {
         console.log("salvou");
-    }
+    };
 
     return (
         <ModalComponent
@@ -69,8 +69,11 @@ export const ModalAddWallet = ({ open, close }) => {
         >
             <div className='containerModalAdd'>
                 <div className='containerTitle'>
-                    <h1 className="logo">Adicionar Carteira</h1>
-                    <Button className="nBtn" onClick={close}>
+                    <h1 className='logo'>Adicionar Carteira</h1>
+                    <Button
+                        className='nBtn'
+                        onClick={close}
+                    >
                         <IoMdClose />
                     </Button>
                 </div>
@@ -103,11 +106,27 @@ export const ModalAddWallet = ({ open, close }) => {
                             />
                         </div>
                         <div className='buttonsControlWallet'>
-                            <Button className='btn' onClick={close}>Cancelar</Button>
-                            <Button className='btn-success' onClick={() => {
-                                handlerClickSalvar();
-                                close();
-                            }}>Salvar</Button>
+                            <div>
+                            <Button
+                                className='btn'
+                                onClick={close}
+                            >
+                                Cancelar
+                            </Button>
+
+                            </div>
+                            <div>
+
+                                <Button
+                                    className='btn-success'
+                                    onClick={() => {
+                                        handlerClickSalvar();
+                                        close();
+                                    }}
+                                >
+                                    Salvar
+                                </Button>
+                            </div>
                         </div>
                     </Form>
                 </div>

@@ -7,8 +7,16 @@
 	width: 100%;
 }
 
+.containerTitle > h1 {
+	font-size: 2rem;
+}
+
 .containerFormModalAdd {
 	color: var(--white);
+}
+
+.containerFormModalAdd > Form > div {
+	margin: 0.8rem;
 }
 
 .buttonsControlWallet {
@@ -16,7 +24,16 @@
 	flex-direction: row;
 	flex-wrap: nowrap;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: space-between;
+}
+
+.buttonsControlWallet > div {
+	text-align: center;
+	width: 45%;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+}
+
+.buttonsControlWallet > div > button {
 	width: 100%;
-	padding: .5rem;
 }
