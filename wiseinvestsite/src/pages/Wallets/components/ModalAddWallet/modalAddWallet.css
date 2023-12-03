@@ -19,6 +19,10 @@
 	margin: 0.8rem;
 }
 
+.containerFormModalAdd > Form > div:last-child {
+	margin: 1.5rem;
+}
+ 
 .buttonsControlWallet {
 	display: flex;
 	flex-direction: row;
