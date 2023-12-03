@@ -21,7 +21,7 @@ export const ModalAddWallet = ({ open, close }) => {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            width: "50%"
+            width: "50%",
         },
     };
 
@@ -107,16 +107,14 @@ export const ModalAddWallet = ({ open, close }) => {
                         </div>
                         <div className='buttonsControlWallet'>
                             <div>
-                            <Button
-                                className='btn'
-                                onClick={close}
-                            >
-                                Cancelar
-                            </Button>
-
+                                <Button
+                                    className='btn'
+                                    onClick={close}
+                                >
+                                    Cancelar
+                                </Button>
                             </div>
                             <div>
-
                                 <Button
                                     className='btn-success'
                                     onClick={() => {
