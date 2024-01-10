@@ -4,18 +4,7 @@ import { ModalComponent } from "../../../../components/Modal/ModalComponent";
 import Button from "../../../../components/Button/Button";
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
-
-const customStyles = {
-    content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
-        width: "50%",
-    },
-};
+import { customStyles } from '../../../../_config/custonStylesModal';
 
 export const ModalViewDetailsWallet = ({ open, close, idWallet }) => {
     const [info, setInfo] = useState({

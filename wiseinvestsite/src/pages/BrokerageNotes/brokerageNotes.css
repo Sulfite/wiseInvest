@@ -1,0 +1,34 @@
+.containerBrokerageNotes {
+	display: flex;
+	flex-direction: row;
+
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 1rem;
+}
+
+.containerBrokerageAdd {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	height: 100%;
+}
+
+.containerBrokerageAdd > h1,
+.containerBrokerageAdd > button {
+	margin: 1rem;
+}
+
+.containerListHistoric {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.listBnhistoric {}
+
+.itemListBn {}

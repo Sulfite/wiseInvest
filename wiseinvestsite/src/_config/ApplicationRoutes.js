@@ -5,9 +5,10 @@ import { Dashboard } from "../pages/Dashboard";
 import { Profile } from "../pages/Profile/Profile";
 import { Header } from "../components/Header/Header";
 import { Register } from "../pages/Register/Register";
+import { Wallets } from "../pages/Wallets/Wallets";
+import { BrokerageNotes } from "../pages/BrokerageNotes/BrokerageNotes";
 
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
-import { Wallets } from "../pages/Wallets/Wallets";
 
 export const router = createBrowserRouter([
     {
@@ -50,7 +51,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/brokerageNotes",
-                element: <></>,
+                element: <BrokerageNotes />,
                 errorElement: <ErrorBoundary />
             },
             {

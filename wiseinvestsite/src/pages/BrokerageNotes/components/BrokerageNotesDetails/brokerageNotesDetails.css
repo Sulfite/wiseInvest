@@ -1,0 +1,9 @@
+.containerBnDetails  h2 {
+	margin-bottom: 1rem;
+}
+
+.containerBnDetails table {
+	width: 100%;
+	align-items: center;
+	text-align: center;
+}
