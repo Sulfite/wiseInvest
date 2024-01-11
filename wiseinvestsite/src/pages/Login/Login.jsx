@@ -1,11 +1,10 @@
 import { Form, Link } from "react-router-dom";
+
 import { BsGoogle, BsFacebook } from "react-icons/bs";
 
 import "./login.css";
-
 import Input from "../../components/input/Input";
 import Button from "../../components/Button/Button";
-
 
 export const Login = () => {
   return (
