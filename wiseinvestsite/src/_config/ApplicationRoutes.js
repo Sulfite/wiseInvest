@@ -1,6 +1,7 @@
 import {  createBrowserRouter } from "react-router-dom";
 
 import { Login } from "../pages/Login/Login";
+
 import { Dashboard } from "../pages/Dashboard/Dashboard";
 import { Profile } from "../pages/Profile/Profile";
 import { Header } from "../components/Header/Header";
@@ -8,6 +9,7 @@ import { Register } from "../pages/Register/Register";
 
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
 import { Users } from "../pages/Users/Users";
+
 
 export const router = createBrowserRouter([
     {

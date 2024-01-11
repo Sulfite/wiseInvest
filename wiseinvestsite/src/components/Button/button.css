@@ -5,6 +5,7 @@
     opacity: 1.0;
     transition: opacity 0.3s;
     width: 100%;
+
 }
 
 .btn > svg {
@@ -51,3 +52,4 @@
     text-align: center;
     margin: 0rem .5rem;
 }
+

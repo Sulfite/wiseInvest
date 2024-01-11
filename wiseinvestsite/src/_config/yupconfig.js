@@ -76,4 +76,5 @@ export const FormValidations = yup.object().shape({
     // payUser: yup
     //     .bool()
     //     .oneOf([false], 'Mensagem')
+
 })
