@@ -83,6 +83,26 @@ body, input, textarea, select, button {
     font: 400 1rem var(--font-tertiary);
 }
 
+input {
+    border-radius:  0.5rem;
+    padding: 0.5rem;
+    border-style: none;
+
+    background: var(--white-opacity-005);
+    box-shadow: 0 8px 32px 0 var(--blue-900-037);
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+}
+
+input::placeholder {
+    color: var(--white);
+    opacity: 1; /* Firefox */
+}
+  
+input::-ms-input-placeholder { /* Edge 12 -18 */
+    color: var(--white);
+}
+
 button {
     border-style: none;
     cursor: pointer;
@@ -112,6 +132,7 @@ a {
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
     border-radius: 1rem;
+
     padding: 2rem 0.5rem;
     text-align: center;
 }
@@ -147,4 +168,46 @@ a {
 .infoDanger {
 	font-size: 0.9rem;
 	color: var(--red-900);
+
+}
+
+.btn {
+    background-color: var(--gold-300);
+    color: var(--black);
+    font-weight: bold;
+    opacity: 1.0;
+    transition: opacity 0.3s;
+}
+
+.btn > svg {
+    margin-right: 0.5rem;
+}
+
+.btn-danger {
+    background-color: var(--red-900);
+}
+
+.btn-success {
+    background-color: var(--green-900);
+}
+
+.btn-danger, 
+.btn-success {
+    color: var(--beige-300);
+    opacity: 1.0;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+.btn-danger:hover {
+    opacity: 0.80;
+    color: var(--white);
+    transition-timing-function: ease-in;
+}
+
+.btn:hover,
+.btn-success:hover {
+    transition-timing-function: ease-in;
+    opacity: 0.80;
+    color: var(--white);
 }
