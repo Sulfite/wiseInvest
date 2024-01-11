@@ -1,8 +1,11 @@
-import { Form } from "react-router-dom";
-
+import { Form, Link } from "react-router-dom";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
 
 import "./login.css";
+
+import Input from "../../components/input/Input";
+import Button from "../../components/Button/Button";
+
 
 export const Login = () => {
   return (
@@ -12,25 +15,27 @@ export const Login = () => {
           <h1>Wise Invest</h1>
           <div className="containerFormLogin">
             <Form method="post">
-              <input name="user" type="text" placeholder="E-mail/User" />
-              <input name="password" type="password" placeholder="Password" />
+              <Input name="nameUser" type="text" placeholder="E-mail/User" />
+              <Input name="passwordUser" type="password" placeholder="Password" />
 
-              <button className="btn" type="submit">
+              <Button className="btn" type="submit">
                 Login
-              </button>
+              </Button>
             </Form>
           </div>
           <div className="containerRegister">
-            <button id="register" className="btn">
-              Register
-            </button>
-            <button id="rlGoogle" className="btn">
+            <Link to={'/register'} id="register" >
+              <Button className="btn">
+                Register
+              </Button>
+            </Link>
+            <Button id="rlGoogle" className="btn">
               <BsGoogle /> Google
-            </button>
-            <button id="rlFacebook" className="btn">
+            </Button>
+            <Button id="rlFacebook" className="btn">
               <BsFacebook />
               Facebook
-            </button>
+            </Button>
           </div>
         </div>
       </div>

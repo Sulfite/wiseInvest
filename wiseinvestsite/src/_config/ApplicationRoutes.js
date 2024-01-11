@@ -1,44 +1,67 @@
 import {  createBrowserRouter } from "react-router-dom";
+
 import { Login } from "../pages/Login/Login";
 import { Dashboard } from "../pages/Dashboard";
+import { Profile } from "../pages/Profile/Profile";
+import { Header } from "../components/Header/Header";
+import { Register } from "../pages/Register/Register";
+
+import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <Login />,
+        errorElement: <ErrorBoundary />,
     },
     {
-        path: "/dashboard",
-        element: <Dashboard />
-    },
-
-    {
-        path:"/perfil",
-        element: <></>
+        path: "/register",
+        element: <Register />,
+        errorElement: <ErrorBoundary />,
     },
     {
-        path:"/users",
-        element: <></>
-    },
-    {
-        path:"/myRecommendation",
-        element: <></>
-    },
-    {
-        path:"/Wallets",
-        element: <></>
-    },
-    {
-        path:"/brokerageNotes",
-        element: <></>
-    },
-    {
-        path:"/recommendations",
-        element: <></>
-    },
-    {
-        path:"/detailedProfitability",
-        element: <></>
+        element: <Header />,
+        children: [
+            {
+                path: "dashboard",
+                element: <Dashboard />,
+                errorElement: <ErrorBoundary />
+            },
+            {
+                path:"perfil",
+                element: <Profile />,
+                errorElement: <ErrorBoundary />
+            },
+            {
+                path:"/users",
+                element: <></>,
+                errorElement: <ErrorBoundary />
+            },
+            {
+                path:"/myRecommendation",
+                element: <></>,
+                errorElement: <ErrorBoundary />
+            },
+            {
+                path:"/Wallets",
+                element: <></>,
+                errorElement: <ErrorBoundary />
+            },
+            {
+                path:"/brokerageNotes",
+                element: <></>,
+                errorElement: <ErrorBoundary />
+            },
+            {
+                path:"/recommendations",
+                element: <></>,
+                errorElement: <ErrorBoundary />
+            },
+            {
+                path:"/detailedProfitability",
+                element: <></>,
+                errorElement: <ErrorBoundary />
+            }
+        ],
     }
-
 ]);
