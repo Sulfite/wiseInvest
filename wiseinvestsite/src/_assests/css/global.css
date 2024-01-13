@@ -12,7 +12,7 @@
     --white-opacity-005: #FFFFFF80;
     --white-opacity-002: #FFFFFF33;
 
-    --blue-900-037: #1f26875e; 
+    --blue-900-037: #1f26875e;
 
     --gray-100: #e1e1e6;
     --gray-300: #a8a8b3;
@@ -133,7 +133,7 @@ a {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	
+
     width: 100%;
     margin: 0.5rem;
 }

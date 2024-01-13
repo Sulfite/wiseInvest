@@ -132,6 +132,11 @@ dist
 # Customized
 wiseInvestApi/src/package-lock.json
 dbWiseInvest
+wiseinvestsite_
+package__.json
+package.json
+
+/wiseinvestsite/package-lock.json
 .vscode
 wiseinvestsite_
 package__.json

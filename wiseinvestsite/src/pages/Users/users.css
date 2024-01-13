@@ -1,0 +1,38 @@
+.containerUsers {
+    padding: 1.5rem;
+}
+
+.userList {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    color: var(--white);
+}
+/* 
+.headerUserList {
+    width: 100%;
+    display: grid;
+    grid-template-areas: 'name name profile actions';
+    text-align: center;
+    color: var(--white);
+}
+
+.headerName {
+    grid-area: name;
+}
+
+.headerProfile {
+    grid-area: profile;
+}
+
+.hearderButon {
+    grid-area: actions;
+} */

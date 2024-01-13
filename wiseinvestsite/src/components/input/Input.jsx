@@ -6,7 +6,7 @@ import './input.css';
 
 const Input = ({error, label, ...rest}) => {
 	const [touched, setTouched] = useState(false);
-	
+
     return (
         <div className="formItem">
             { (!isNullOrEmpty(label)) ? <label htmlFor={rest.name}>{label}</label> : '' }

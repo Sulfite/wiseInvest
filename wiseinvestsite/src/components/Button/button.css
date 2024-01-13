@@ -18,7 +18,7 @@
     background-color: var(--green-900);
 }
 
-.btn-danger, 
+.btn-danger,
 .btn-success {
     color: var(--beige-300);
     opacity: 1.0;

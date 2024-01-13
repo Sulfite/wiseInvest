@@ -25,7 +25,7 @@ const cidades = [
 ];
 
 const initialForm = {
-    
+
     cdPostalUser: '',
     streetUser: '',
     districtUser: '',
@@ -40,8 +40,8 @@ export const FormAddres = () => {
 
     const [form, setForm] = useState(initialForm);
     const [errors, setErrors] = useState({});
-    
-    const validate = async () => { 
+
+    const validate = async () => {
         try {
             await FormValidations.validate(form, { abortEarly: false });
             setErrors({});
@@ -131,7 +131,7 @@ export const FormAddres = () => {
                         error={errors.streetUser}
                     />
                 </div>
-                
+
                 <div className='numberStret'>
                     <Input
                         placeholder={"Número: "}
@@ -154,7 +154,7 @@ export const FormAddres = () => {
                     />
                 </div>
 
-               
+
 
 
                 <div className='buttonsControlAddres'>
@@ -164,7 +164,7 @@ export const FormAddres = () => {
                     >
                         Cancelar
                     </Button>
-                
+
                     <Button
                         typeStyle={"btn-success"}
                         type='submit'

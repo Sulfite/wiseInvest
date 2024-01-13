@@ -18,7 +18,7 @@ const isValidJson = (json) => {
 const formatDollarSign = (value, local, currency) => {
     if (isNullOrEmpty(local) || isNullOrEmpty(currency))
         return 0;
-    
+
     value = value.toLocaleString(local, {style: 'currency', currency: currency});
 
     return value;
@@ -28,7 +28,7 @@ const formatDollarSign = (value, local, currency) => {
 const formatNotDollarSign = (value, local) => {
     if (isNullOrEmpty(local))
         return 0;
-    
+
     value = value.toLocaleString(local, {minimumFractionDigits: 2});
 
     return value;
@@ -37,7 +37,7 @@ const formatNotDollarSign = (value, local) => {
 const formatDate = (value) => {
     let formattedDate;
     value = new Date(value);
-    
+
     formattedDate = ((value.getDate() )) + "/" + ((value.getMonth() + 1)) + "/" + value.getFullYear();
     return formattedDate;
 }
