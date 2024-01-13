@@ -12,7 +12,7 @@
     --white-opacity-005: #FFFFFF80;
     --white-opacity-002: #FFFFFF33;
 
-    --blue-900-037: #1f26875e; 
+    --blue-900-037: #1f26875e;
 
     --gray-100: #e1e1e6;
     --gray-300: #a8a8b3;
@@ -42,8 +42,7 @@
     --gold-100: #ffc839; /* 100 */
 
     /* violet tonbalities  */
-    --violet-1000: #200040;
-    --violet-900: #300060;
+    --violet-900: #200040;
     --violet-800: #400080;
     --violet-500: #7F00FF;
     --violet-400: #c489ff;
@@ -71,7 +70,13 @@ body {
 	  sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-    background-color: var(--violet-1000);
+
+    background-image: linear-gradient(
+        65.49deg,
+        var(--violet-800) 33%,
+        var(--violet-500) 120%,
+        var(--violet-400) 140%
+    );
 }
 
 body, input, textarea, select, button {
@@ -102,11 +107,10 @@ a {
 }
 
 .card {
-    background-color: var(--violet-900);
-    /* background: var(--white-opacity-002);
+    background: var(--white-opacity-002);
     box-shadow: 0 8px 32px 0 var(--blue-900-037);
     backdrop-filter: blur( 20px );
-    -webkit-backdrop-filter: blur( 20px ); */
+    -webkit-backdrop-filter: blur( 20px );
     border-radius: 1rem;
     padding: 2rem 0.5rem;
     text-align: center;
@@ -129,7 +133,7 @@ a {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	
+
     width: 100%;
     margin: 0.5rem;
 }

@@ -4,8 +4,6 @@
     font-weight: bold;
     opacity: 1.0;
     transition: opacity 0.3s;
-    width: 100%;
-
 }
 
 .btn > svg {
@@ -20,9 +18,8 @@
     background-color: var(--green-900);
 }
 
-.btn-danger, 
+.btn-danger,
 .btn-success {
-    width: 100%;
     color: var(--beige-300);
     opacity: 1.0;
     font-weight: bold;
@@ -42,14 +39,16 @@
     color: var(--white);
 }
 
-.btn-img {
+.nBtn {
+    background-color: transparent;
     color: var(--white);
-    background-color: var(--violet-1000);
+    font-weight: bold;
+    opacity: 1.0;
+    transition: opacity 0.3s;
 }
 
-.btn-img > span,
-.btn-img > svg {
-    text-align: center;
-    margin: 0rem .5rem;
+.nBtn:hover {
+    transition-timing-function: ease-in;
+    opacity: 0.80;
+    color: var(--gold-300);
 }
-

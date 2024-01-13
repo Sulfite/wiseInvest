@@ -3,10 +3,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    width: 100vw;
-    height: 100vh;
-
 }
 
 .containerFormLogin > form {
@@ -30,15 +26,15 @@
     border-top: 0.25rem solid var(--gray-100);
 }
 
-#register { 
+#register {
     grid-area: register;
 }
 
-#rlGoogle { 
+#rlGoogle {
     grid-area: rlGoogle;
 }
 
-#rlFacebook { 
+#rlFacebook {
     grid-area: rlFacebook;
 }
 
@@ -52,7 +48,7 @@
     .containerFormLogin > form > button {
         margin: 0.5rem;
         width: 25vw;
-    }   
+    }
 }
 
 @media (max-width: 1080px) {
@@ -60,7 +56,7 @@
     .containerFormLogin > form > button {
         margin: 0.5rem;
         width: 25vw;
-    }   
+    }
 }
 
 @media (max-width: 720px) {
@@ -68,5 +64,5 @@
     .containerFormLogin > form > button {
         margin: 0.5rem;
         width: 50vw;
-    }   
+    }
 }

@@ -2,15 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from "react-router-dom";
+import Modal from "react-modal";
+
+import { router } from './_config/ApplicationRoutes';
 
 import './_assests/css/global.css';
 import './components/Header/Header.css';
 
-import { router } from './_config/ApplicationRoutes';
+Modal.setAppElement('#root');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <RouterProvider router={router} />
     <RouterProvider router={router} />
   </React.StrictMode>
 );

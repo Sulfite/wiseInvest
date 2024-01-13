@@ -1,0 +1,43 @@
+.containerTitle {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.containerTitle > h1 {
+	font-size: 2rem;
+}
+
+.containerFormModalAdd {
+	color: var(--white);
+}
+
+.containerFormModalAdd > Form > div {
+	margin: 0.8rem;
+}
+
+.containerFormModalAdd > Form > div:last-child {
+	margin: 1.5rem;
+}
+ 
+.buttonsControlWallet {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.buttonsControlWallet > div {
+	text-align: center;
+	width: 45%;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+}
+
+.buttonsControlWallet > div > button {
+	width: 100%;
+}

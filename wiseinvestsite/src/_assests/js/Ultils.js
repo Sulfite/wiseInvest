@@ -1,15 +1,3 @@
-// const crypto = require("crypto");
-// const jwt = require("jsonwebtoken");
-
-// const hash = (password) => {
-// 	password = password.split("").reverse().join();
-// 	password = crypto.createHash(process.env.ALGORITHM).update(password).digest('hex');
-
-// 	let salt = password.substring(password.length-10,password.length);
-// 	password = crypto.createHash(process.env.ALGORITHM).update(salt + password).digest('hex');
-// 	return password;
-// };
-
 const isNullOrEmpty = (value) => {
 	if (value === null || value === "" || value === "null" || value === undefined)
         return true
@@ -26,22 +14,38 @@ const isValidJson = (json) => {
     }
 };
 
-// const isValidToken = (req, res, next) => {
-// 	const token = req.headers['x-access-token'];
+//com R$
+const formatDollarSign = (value, local, currency) => {
+    if (isNullOrEmpty(local) || isNullOrEmpty(currency))
+        return 0;
 
-// 	if(!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
+    value = value.toLocaleString(local, {style: 'currency', currency: currency});
 
-// 	jwt.verify(token, process.env.SECRET_TOKEN_AUTENTICACAO, function(err, decoded) {
-// 		if(err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+    return value;
+}
 
-// 		req.userID = decoded.id;
-// 		next();
-// 	});
-// }
+//sem R$
+const formatNotDollarSign = (value, local) => {
+    if (isNullOrEmpty(local))
+        return 0;
+
+    value = value.toLocaleString(local, {minimumFractionDigits: 2});
+
+    return value;
+}
+
+const formatDate = (value) => {
+    let formattedDate;
+    value = new Date(value);
+
+    formattedDate = ((value.getDate() )) + "/" + ((value.getMonth() + 1)) + "/" + value.getFullYear();
+    return formattedDate;
+}
 
 module.exports = {
-	// hash,
 	isNullOrEmpty,
     isValidJson,
-	// isValidToken
+    formatDollarSign,
+    formatNotDollarSign,
+    formatDate
 }

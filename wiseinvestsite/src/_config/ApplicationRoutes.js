@@ -1,15 +1,14 @@
 import {  createBrowserRouter } from "react-router-dom";
 
 import { Login } from "../pages/Login/Login";
-
-import { Dashboard } from "../pages/Dashboard/Dashboard";
+import { Dashboard } from "../pages/Dashboard";
 import { Profile } from "../pages/Profile/Profile";
 import { Header } from "../components/Header/Header";
 import { Register } from "../pages/Register/Register";
+import { Wallets } from "../pages/Wallets/Wallets";
+import { BrokerageNotes } from "../pages/BrokerageNotes/BrokerageNotes";
 
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
-import { Users } from "../pages/Users/Users";
-
 
 export const router = createBrowserRouter([
     {
@@ -37,7 +36,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/users",
-                element: <Users />,
+                element: <></>,
                 errorElement: <ErrorBoundary />
             },
             {
@@ -47,12 +46,12 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/Wallets",
-                element: <></>,
+                element: <Wallets />,
                 errorElement: <ErrorBoundary />
             },
             {
                 path:"/brokerageNotes",
-                element: <></>,
+                element: <BrokerageNotes />,
                 errorElement: <ErrorBoundary />
             },
             {

@@ -1,0 +1,44 @@
+.conteinerWallets {
+	padding: 1rem;
+}
+
+.titleWallets {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.titleWallets > button {
+	position: relative;
+	float: right;
+}
+
+.conteinerItemWallets {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	flex-wrap: wrap;
+}
+
+.itemWallet {
+	margin: 0.5rem;
+	width: calc(100vw / 3.5);
+	padding: 1rem;
+	text-align: center;
+}
+
+.itemWallet > p {
+	max-width: 45ch;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin: 0.5rem;
+}
+
+.itemWallet > h1,
+.itemWallet > button {
+	margin: 1rem;
+}
