@@ -5,6 +5,7 @@ import Button from "../../../components/Button/Button";
 import "./itemUser.css";
 import { useState } from "react";
 import { AddUser } from "../AddUser/AddUser";
+import { DeleteUser } from "../DeleteUser/DeleteUser";
 
 // const ItemUserN = ({ name, perfil }) => {
 //     const [isAddUser, setIsAddUser] = useState(false);
@@ -49,7 +50,27 @@ import { AddUser } from "../AddUser/AddUser";
 // };
 
 const ItemUserN = ({ name, perfil }) => {
-    const [isAddUser, setIsAddUser] = useState(false);
+    const [modalEdtUser, setModalEdtUser] = useState(false);
+    const [userSelectedID, setUserSelectedID] = useState("");
+    const [modalDeleteUser, setModalDeleteUser] = useState(false);
+
+    const handlerClickEdtUser = idUser => {
+        setUserSelectedID(idUser);
+        setModalEdtUser(true);
+    };
+
+    function closeModalEdtUser() {
+        setModalEdtUser(false);
+    }
+
+    const handlerClickDeleteUser = idUser => {
+        setUserSelectedID(idUser);
+        setModalDeleteUser(true);
+    };
+
+    function closeModalDeleteUser() {
+        setModalDeleteUser(false);
+    }
 
     return (
         <>
@@ -63,25 +84,44 @@ const ItemUserN = ({ name, perfil }) => {
                 <div className='itemButon'>
                     <Button
                         className='btn'
-                        onClick={() => setIsAddUser(true)}
+                        onClick={() => handlerClickEdtUser(1)}
                     >
                         editar
                     </Button>
-                    <Button className='btn-danger'>delete</Button>
+                    <Button
+                        className='btn-danger'
+                        onClick={() => handlerClickDeleteUser(2)}
+                    >
+                        delete
+                    </Button>
                 </div>
             </td>
 
-            {/* <div className='itemName'>
-            </div>
-            <div className='itemProfile'>
-            </div> */}
-            {isAddUser && <AddUser dropdown={setIsAddUser} />}
+            <AddUser
+                open={modalEdtUser}
+                close={closeModalEdtUser}
+                idUser={userSelectedID}
+            />
+
+            <DeleteUser
+                open={modalDeleteUser}
+                close={closeModalDeleteUser}
+                idUser={userSelectedID}
+            />
         </>
     );
 };
 
 const ItemUserHeader = ({ name, perfil, action }) => {
-    const [isAddUser, setIsAddUser] = useState(false);
+    const [modalAddUser, setModalAddUser] = useState(false);
+
+    const handlerClickAddUser = typeSend => {
+        setModalAddUser(true);
+    };
+
+    function closeModalAddUser() {
+        setModalAddUser(false);
+    }
 
     return (
         <>
@@ -95,23 +135,19 @@ const ItemUserHeader = ({ name, perfil, action }) => {
                 <div className='itemButonHeader'>
                     <Button
                         className='btn-img'
-                        onClick={() => setIsAddUser(true)}
+                        onClick={() => handlerClickAddUser(true)}
                     >
                         <span>{action}</span>
                         <IoMdPersonAdd />
                     </Button>
                 </div>
             </th>
-            {/* <div className='itemNameHeader'>
-            </div>
-            <div className='itemProfileHeader'>
-            </div> */}
-            {isAddUser && <AddUser dropdown={setIsAddUser} />}
+            <AddUser open={modalAddUser} close={closeModalAddUser} />
         </>
     );
 };
 
-export const ItemUser = (props) => {
+export const ItemUser = props => {
     return (
         // <div className='userItem'>
         <tr>
@@ -122,10 +158,7 @@ export const ItemUser = (props) => {
                     action={props.action}
                 />
             ) : (
-                <ItemUserN
-                    name={props.name}
-                    perfil={props.perfil}
-                />
+                <ItemUserN name={props.name} perfil={props.perfil} />
             )}
         </tr>
         // </div>
