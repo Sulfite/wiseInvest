@@ -7,6 +7,7 @@ import { Header } from "../components/Header/Header";
 import { Register } from "../pages/Register/Register";
 import { Wallets } from "../pages/Wallets/Wallets";
 import { BrokerageNotes } from "../pages/BrokerageNotes/BrokerageNotes";
+import { Users } from "../pages/Users/Users";
 
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
 
@@ -30,13 +31,13 @@ export const router = createBrowserRouter([
                 errorElement: <ErrorBoundary />
             },
             {
-                path:"perfil",
+                path:"profile",
                 element: <Profile />,
                 errorElement: <ErrorBoundary />
             },
             {
                 path:"/users",
-                element: <></>,
+                element: <Users />,
                 errorElement: <ErrorBoundary />
             },
             {

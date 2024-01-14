@@ -112,7 +112,7 @@ a {
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
     border-radius: 1rem;
-    padding: 2rem 0.5rem;
+    /* padding: 2rem 0.5rem; */
     text-align: center;
 }
 

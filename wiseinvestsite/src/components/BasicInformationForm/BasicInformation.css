@@ -3,12 +3,12 @@
 	height: 100%;
 }
 
-.basicInformationContainer > h1 { 
+.basicInformationContainer > h1 {
 	font-size: 1.5rem;
 	height: 10%;
 }
 
-.basicInformationContainer > form { 
+.basicInformationContainer > form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -22,9 +22,9 @@
 	justify-content: space-around;
 	align-items: center;
 	width: 100%;
-	margin: 1rem 0.5rem;
+	margin: 0.7rem 0.5rem;
 }
 
 .buttonsControlInfoBasic > button {
-	width: 8vw;
+	width: 45%;
 }

@@ -12,15 +12,15 @@ import Button from "../Button/Button";
 // Estilos
 import "./BasicInformation.css";
 
-export const BasicInformationForm = (props) => {
+export const BasicInformationForm = props => {
     const initialForm = {
         nameUser: props.logged ? "Vinicius De Morais" : "",
         emailUser: props.logged ? "vinicius@wiseinvest.com" : "",
         passwordUser: "",
         confirmPasswordUser: "",
-        dtBirth: "1987-03-30",
+        dtBirth: props.logged ? "1987-03-30" : "",
         typePerson: "F",
-        nationalIdentifierUser: "12345678909",
+        nationalIdentifierUser: props.logged ? "12345678909" : "",
     };
 
     const [form, setForm] = useState(initialForm);
@@ -28,14 +28,14 @@ export const BasicInformationForm = (props) => {
     const [isVisible] = useState(!props.logged);
     const [errors, setErrors] = useState({});
 
-    const validate = async () => { 
+    const validate = async () => {
         try {
             await FormValidations.validate(form, { abortEarly: false });
             setErrors({});
         } catch (e) {
             if (e instanceof ValidationError) {
                 const errors = {};
-                e.inner.forEach((key) => {
+                e.inner.forEach(key => {
                     errors[key.path] = key.message;
                 });
                 setErrors(errors);
@@ -43,8 +43,8 @@ export const BasicInformationForm = (props) => {
         }
     };
 
-    const setInput = (newValue) => {
-        setForm((form) => ({ ...form, ...newValue }));
+    const setInput = newValue => {
+        setForm(form => ({ ...form, ...newValue }));
     };
 
     useEffect(() => {
@@ -57,12 +57,12 @@ export const BasicInformationForm = (props) => {
         setForm(initialForm);
     };
 
-    const handlerClickEdit = (e) => {
+    const handlerClickEdit = e => {
         e.preventDefault();
         setIsEnabled(false);
     };
 
-    const handlerClickSubmit = (e) => {
+    const handlerClickSubmit = e => {
         e.preventDefault();
 
         console.log(form);
@@ -71,16 +71,17 @@ export const BasicInformationForm = (props) => {
 
     return (
         <div className='card basicInformationContainer'>
-            <h1>{props.logged === false ? "Registre-se" : "Informações Basicas"}</h1>
+            <h1>
+                {props.logged === false ? "Registre-se" : "Informações Basicas"}
+            </h1>
             <Form method='post'>
                 {props.logged === false ? (
                     <Input
-                        placeholder={"Nome: "}
                         label={"Nome: "}
                         name='nameUser'
                         disabled={isEnable}
                         type='text'
-                        onChange={(e) => setInput({ nameUser: e.target.value })}
+                        onChange={e => setInput({ nameUser: e.target.value })}
                         error={errors.nameUser}
                     />
                 ) : (
@@ -91,21 +92,18 @@ export const BasicInformationForm = (props) => {
                         value={form.nameUser}
                         disabled={isEnable}
                         type='text'
-                        onChange={(e) => setInput({ nameUser: e.target.value })}
+                        onChange={e => setInput({ nameUser: e.target.value })}
                         error={errors.nameUser}
                     />
                 )}
 
                 {props.logged === false ? (
                     <Input
-                        placeholder={"E-mail: "}
                         label={"E-mail: "}
                         name='emailUser'
                         disabled={isEnable}
                         type='email'
-                        onChange={(e) =>
-                            setInput({ emailUser: e.target.value })
-                        }
+                        onChange={e => setInput({ emailUser: e.target.value })}
                         error={errors.emailUser}
                     />
                 ) : (
@@ -117,9 +115,7 @@ export const BasicInformationForm = (props) => {
                         name='emailUser'
                         disabled={isEnable}
                         type='email'
-                        onChange={(e) =>
-                            setInput({ emailUser: e.target.value })
-                        }
+                        onChange={e => setInput({ emailUser: e.target.value })}
                         error={errors.emailUser}
                     />
                 )}
@@ -128,13 +124,12 @@ export const BasicInformationForm = (props) => {
                     props.logged === false ? (
                         <>
                             <Input
-                                placeholder={"Senha:"}
                                 label={"Senha:"}
                                 autoComplete='false'
                                 name='passwordUser'
                                 disabled={isEnable}
                                 type='password'
-                                onChange={(e) =>
+                                onChange={e =>
                                     setInput({
                                         passwordUser: e.target.value,
                                     })
@@ -143,13 +138,12 @@ export const BasicInformationForm = (props) => {
                             />
 
                             <Input
-                                placeholder={"Confirmar Senha: "}
                                 label={"Confirmar Senha: "}
                                 autoComplete='false'
                                 name='confirmPasswordUser'
                                 disabled={isEnable}
                                 type='password'
-                                onChange={(e) =>
+                                onChange={e =>
                                     setInput({
                                         confirmPasswordUser: e.target.value,
                                     })
@@ -160,37 +154,56 @@ export const BasicInformationForm = (props) => {
                     ) : (
                         ""
                     )
-                    // :   <div className="formItem">
-                    //         <label htmlFor="passwordUser">Email: </label>
-                    //         <input value={form.passwordUser} id="passwordUser" name="passwordUser" disabled={isEnable} type="password" onChange={e => setInput({ passwordUser: e.target.value })} />
-                    //     </div>
                 }
 
-                <Input
-                    label={"Data de Nascimento: "}
-                    value={form.dtBirth}
-                    id='dtBirth'
-                    name='dtBirth'
-                    disabled={isEnable}
-                    type='date'
-                    onChange={(e) => setInput({ dtBirth: e.target.value })}
-                    error={errors.dtBirth}
-                    hidden={isVisible}
-                />
+                {props.logged === false ? (
+                    <Input
+                        label={"Data de Nascimento: "}
+                        id='dtBirth'
+                        name='dtBirth'
+                        type='date'
+                        onChange={e => setInput({ dtBirth: e.target.value })}
+                        error={errors.dtBirth}
+                    />
+                ) : (
+                    <Input
+                        label={"Data de Nascimento: "}
+                        value={form.dtBirth}
+                        id='dtBirth'
+                        name='dtBirth'
+                        disabled={isEnable}
+                        type='date'
+                        onChange={e => setInput({ dtBirth: e.target.value })}
+                        error={errors.dtBirth}
+                        hidden={isVisible}
+                    />
+                )}
 
-                <Input
-                    placeholder={form.typePerson === "F" ? "CPF: " : "CNPJ: "}
-                    label={form.typePerson === "F" ? "CPF: " : "CNPJ: "}
-                    value={form.nationalIdentifierUser}
-                    name='nationalIdentifierUser'
-                    disabled={isEnable}
-                    type='text'
-                    onChange={(e) =>
-                        setInput({ nationalIdentifierUser: e.target.value })
-                    }
-                    error={errors.nationalIdentifierUser}
-                    hidden={isVisible}
-                />
+                {props.logged === false ? (
+                    <Input
+                        label={form.typePerson === "F" ? "CPF: " : "CNPJ: "}
+                        value={form.nationalIdentifierUser}
+                        name='nationalIdentifierUser'
+                        type='text'
+                        onChange={e =>
+                            setInput({ nationalIdentifierUser: e.target.value })
+                        }
+                        error={errors.nationalIdentifierUser}
+                    />
+                ) : (
+                    <Input
+                        label={form.typePerson === "F" ? "CPF: " : "CNPJ: "}
+                        value={form.nationalIdentifierUser}
+                        name='nationalIdentifierUser'
+                        disabled={isEnable}
+                        type='text'
+                        onChange={e =>
+                            setInput({ nationalIdentifierUser: e.target.value })
+                        }
+                        error={errors.nationalIdentifierUser}
+                        hidden={isVisible}
+                    />
+                )}
 
                 <div className='buttonsControlInfoBasic'>
                     <Button
@@ -215,7 +228,7 @@ export const BasicInformationForm = (props) => {
                             type='submit'
                             onClick={handlerClickSubmit}
                         >
-                            Salvar
+                            Registrar-se
                         </Button>
                     )}
                 </div>

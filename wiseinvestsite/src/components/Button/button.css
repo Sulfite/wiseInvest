@@ -30,6 +30,7 @@
     opacity: 0.80;
     color: var(--white);
     transition-timing-function: ease-in;
+
 }
 
 .btn:hover,

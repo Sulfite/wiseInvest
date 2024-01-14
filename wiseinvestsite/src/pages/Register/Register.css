@@ -1,12 +1,21 @@
 .containerFormRegister {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.containerFormRegister > h1 {
-	font-family: var(--font-primary);
-    color: var(--gold-300);
-    font-weight: 700;
+.FormRegister {
+  text-align: center;
+  width: 50%;
+}
+
+.FormRegister > h1 {
+  font-family: var(--font-primary);
+  color: var(--gold-300);
+  font-weight: 700;
+}
+
+.containerFormRegister > h1 + div {
+  width: 50%;
 }
