@@ -12,7 +12,7 @@ export const Header = () => {
 
         <nav>
           {/* Todos  */}
-          <Link to={"/perfil"}>Perfil</Link>
+          <Link to={"/profile"}>Perfil</Link>
           {/* 1 */}
           <Link to={"/users"}>Usuarios</Link>{" "}
           {/* Controle de acessos e usuarios */}
@@ -36,7 +36,7 @@ export const Header = () => {
           {/* Rentabilidade */}
         </nav>
       </div>
-      
+
       <Outlet />
     </>
   );
