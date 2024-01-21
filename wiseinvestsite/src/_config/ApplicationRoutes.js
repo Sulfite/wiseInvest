@@ -8,6 +8,8 @@ import { Register } from "../pages/Register/Register";
 import { Wallets } from "../pages/Wallets/Wallets";
 import { BrokerageNotes } from "../pages/BrokerageNotes/BrokerageNotes";
 import { Users } from "../pages/Users/Users";
+import { Recommendations } from "../pages/Recommendations/Recommendations";
+import { AddRecommendation } from "../pages/Recommendations/components/AddRecommendation/AddRecommendation";
 
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
 
@@ -21,6 +23,17 @@ export const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
         errorElement: <ErrorBoundary />,
+    },
+    {
+        path:"/myRecommendation",
+        element: <Recommendations />,
+
+        errorElement: <ErrorBoundary />
+    },
+    {
+        path:"/myRecommendation/addIndicationRecommendation",
+        element: <AddRecommendation />,
+        errorElement: <ErrorBoundary />
     },
     {
         element: <Header />,
@@ -40,11 +53,7 @@ export const router = createBrowserRouter([
                 element: <Users />,
                 errorElement: <ErrorBoundary />
             },
-            {
-                path:"/myRecommendation",
-                element: <></>,
-                errorElement: <ErrorBoundary />
-            },
+
             {
                 path:"/Wallets",
                 element: <Wallets />,

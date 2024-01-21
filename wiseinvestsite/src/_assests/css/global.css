@@ -113,13 +113,14 @@ a {
     -webkit-backdrop-filter: blur( 20px );
     border-radius: 1rem;
     /* padding: 2rem 0.5rem; */
-    text-align: center;
+    /* text-align: center; */
 }
 
 .card > h1 {
     font-family: var(--font-primary);
     color: var(--gold-300);
     font-weight: 700;
+    text-align: center;
 }
 
 
