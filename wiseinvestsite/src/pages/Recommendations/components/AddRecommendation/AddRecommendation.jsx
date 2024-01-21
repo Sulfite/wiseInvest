@@ -5,14 +5,15 @@ import { ValidationError } from "yup";
 
 import Input from "../../../../components/input/Input";
 import Button from "../../../../components/Button/Button";
+import TextArea from "../../../../components/TextArea/TextArea";
 
 import "./addRecommendation.css";
 
 const initialForm = {
-  recomendationTitle: "",
-  recomendationDescription: "",
+  recommendationTitle: "",
+  recommendationDescription: "",
   recommendationStonksBuy: "",
-  recommendationStonksSell: ""
+  recommendationStonksSell: "",
 };
 
 export const AddRecommendation = () => {
@@ -20,48 +21,55 @@ export const AddRecommendation = () => {
   const [errors, setErrors] = useState({});
 
   const validate = async () => {
-      try {
-          await FormValidations.validate(form, { abortEarly: false });
-          setErrors({});
-      } catch (e) {
-          if (e instanceof ValidationError) {
-              const errors = {};
-              e.inner.forEach((key) => {
-                  errors[key.path] = key.message;
-              });
-              setErrors(errors);
-          }
+    try {
+      await FormValidations.validate(form, { abortEarly: false });
+      setErrors({});
+    } catch (e) {
+      if (e instanceof ValidationError) {
+        const errors = {};
+        e.inner.forEach((key) => {
+          errors[key.path] = key.message;
+        });
+        setErrors(errors);
       }
+    }
   };
 
   const setInput = (newValue) => {
-      setForm((form) => ({ ...form, ...newValue }));
+    setForm((form) => ({ ...form, ...newValue }));
   };
 
   useEffect(() => {
-      // eslint-disable-next-line
-      validate();
+    // eslint-disable-next-line
+    validate();
   }, [form]);
 
   return (
     <div className="container containerAddRecommendatio">
-      <Form>
+      <Form className="card">
         <div className="RecommendationTitle">
           <Input
             label={"Título: "}
             name="recomendationTitle"
             type="text"
-            onChange={(e) => setInput({ recomendationTitle: e.target.value })}
-            error={errors.recomendationTitle}
+            onChange={(e) => setInput({ recommendationTitle: e.target.value })}
+            error={errors.recommendationTitle}
           />
         </div>
 
         <div className="recomendationDescription">
-          <Input
+          <TextArea
             label={"Descrição: "}
             name="recomendationDescription"
-            onChange={(e) => setInput({ recomendationDescription: e.target.value })}
-            error={errors.recomendationDescription}
+            cols="90"
+            rows="5"
+            maxLength="501"
+            minLength="3"
+            spellcheck="true"
+            onChange={(e) =>
+              setInput({ recommendationDescription: e.target.value })
+            }
+            error={errors.recommendationDescription}
           />
         </div>
 
@@ -70,7 +78,9 @@ export const AddRecommendation = () => {
             label={"Recomendações de Compra: "}
             name="recommendationStonksBuy"
             type="text"
-            onChange={(e) => setInput({ recommendationStonksBuy: e.target.value })}
+            onChange={(e) =>
+              setInput({ recommendationStonksBuy: e.target.value })
+            }
             error={errors.recommendationStonksBuy}
           />
         </div>
@@ -80,27 +90,30 @@ export const AddRecommendation = () => {
             label={"Recomendações de Venda: "}
             name="recommendationStonksSell"
             type="text"
-            onChange={(e) => setInput({ recommendationStonksSell: e.target.value })}
+            onChange={(e) =>
+              setInput({ recommendationStonksSell: e.target.value })
+            }
             error={errors.recommendationStonksSell}
           />
         </div>
 
+        <div className="containerButtonRecommendation">
+          <div className="buttonsControlRecommendation">
+            <Button
+              typeStyle={"btn"}
+              // onClick={handlerClickCancel}
+            >
+              Cancelar
+            </Button>
 
-        <div className="buttonsControlRecommendation">
-          <Button
-            typeStyle={"btn"}
-            // onClick={handlerClickCancel}
-          >
-            Cancelar
-          </Button>
-
-          <Button
-            typeStyle={"btn-success"}
-            type="submit"
-            // onClick={handlerClickSubmit}
-          >
-            Salvar
-          </Button>
+            <Button
+              typeStyle={"btn-success"}
+              type="submit"
+              // onClick={handlerClickSubmit}
+            >
+              Salvar
+            </Button>
+          </div>
         </div>
       </Form>
     </div>
