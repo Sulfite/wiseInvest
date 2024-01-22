@@ -6,22 +6,25 @@
 
 import { useState } from "react";
 import { ViewAnalyst } from "./components/ViewAnalyst/ViewAnalyst";
-import { Outlet } from "react-router-dom";
+import { ViewUser } from "./components/ViewUser/ViewUser";
 
-export const Recommendations = (type) => {
-  const [teste, seteTeste] = useState("Analista");
+
+export const Recommendations = ({type}) => {
+  const [teste, setTeste] = useState("Analista");
+
+  console.log(type);
 
   return (
     <div className="container containerRecommendations">
-      {teste === "Analista" ? (
+      {type === "Analista" ? (
         <div className="viewAnalyst">
           <ViewAnalyst />
         </div>
       ) : (
-        <div className="viewUser">Visualização por parte do usuario</div>
+        <div className="viewUser">
+          <ViewUser />
+        </div>
       )}
-
-      <Outlet />
     </div>
   );
 };

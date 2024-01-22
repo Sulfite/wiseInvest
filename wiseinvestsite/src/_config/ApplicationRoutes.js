@@ -12,6 +12,7 @@ import { Recommendations } from "../pages/Recommendations/Recommendations";
 import { AddRecommendation } from "../pages/Recommendations/components/AddRecommendation/AddRecommendation";
 
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
+import { DetailsRecommendation } from "../pages/Recommendations/components/DetailsRecommendation/DetailsRecommendation";
 
 export const router = createBrowserRouter([
     {
@@ -26,7 +27,7 @@ export const router = createBrowserRouter([
     },
     {
         path:"/myRecommendation",
-        element: <Recommendations />,
+        element: <Recommendations type={"Analista"} />,
 
         errorElement: <ErrorBoundary />
     },
@@ -66,7 +67,12 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/recommendations",
-                element: <></>,
+                element: <Recommendations />,
+                errorElement: <ErrorBoundary />
+            },
+            {
+                path:"/detailsRecommendations/:idDetailsRecommendation",
+                element: <DetailsRecommendation />,
                 errorElement: <ErrorBoundary />
             },
             {

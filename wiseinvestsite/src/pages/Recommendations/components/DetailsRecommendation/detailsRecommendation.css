@@ -1,0 +1,64 @@
+div.containerDetailsRecommendation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.containerDetailsRecommendationWidth {
+  width: 75vw;
+}
+
+div.detailsRecommendationHeader {
+  width: 100%;
+  text-align: center;
+  margin: 1rem;
+}
+
+div.detailsRecommendationHeader > h1 {
+  color: var(--gold-300);
+}
+
+div.detailsRecommendationHeader > div.subTitleDetailsRecommendation {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+div.detailsRecommendationHeader > div.subTitleDetailsRecommendation > h5 {
+  margin: 0rem 0.5rem;
+  color: var(--gray-300);
+}
+
+.detailsRecommndationBody {
+  margin: 1rem;
+  text-align: justify;
+  color: var(--white);
+}
+
+.recommendationsStonks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem 0 0
+}
+
+.recommendationsStonks > div > h3 {
+  margin: .5rem;
+  color: var(--gold-300);
+}
+
+.sellRecommndationStonks > ul,
+.buyRecommndationStonks > ul {
+  list-style: none;
+}
+
+/*
+.buyRecommndationStonks > ul {
+  color: var(--green-100);
+}
+
+.sellRecommndationStonks > ul {
+  color: var(--red-100);
+} */

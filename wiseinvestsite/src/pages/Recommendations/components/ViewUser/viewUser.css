@@ -1,44 +1,44 @@
-.containerViewanalyst {
+.containerViewUser {
 
 }
 
-#headerIndicationRecommendations {
+#headerIndicationRecommendationsUser {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
 
   padding: 0rem 2rem;
 }
 
-.listRecommendations {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: center;
-}
-
-.cardRecommendation {
-  margin: 1rem;
-  padding: 1rem;
-}
-
-.cardRecommendation > p + h3 {
-  margin: 0.5rem 0rem;
-}
-
-.stonksButSell {
+.listRecommendationsUser {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  margin: 1rem 0;
 }
 
-.stonksButSell > div > ul > li {
-  list-style: none;
+.cardRecommendationUser {
+  margin: 1rem;
+  padding: 0.5rem;
+
+  width: 30vw;
 }
 
-.stonksButSell > div {
+.cardRecommendationUser > a {
   display: block;
+  margin: .5rem 0rem;
+}
+
+@supports (-webkit-line-clamp: 2) {
+  .cardRecommendationUser > p {
+      position: relative;
+      height: 2.4rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+  }
 }

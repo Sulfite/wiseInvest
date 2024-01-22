@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, Navigate, useNavigate } from "react-router-dom";
 import { FormValidations } from "../../../../_config/yupconfig";
 import { ValidationError } from "yup";
 
@@ -19,6 +19,8 @@ const initialForm = {
 export const AddRecommendation = () => {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
 
   const validate = async () => {
     try {
@@ -43,6 +45,10 @@ export const AddRecommendation = () => {
     // eslint-disable-next-line
     validate();
   }, [form]);
+
+  const handlerClickCancel = () => {
+    return navigate("/myRecommendation");
+  };
 
   return (
     <div className="container containerAddRecommendatio">
@@ -99,10 +105,7 @@ export const AddRecommendation = () => {
 
         <div className="containerButtonRecommendation">
           <div className="buttonsControlRecommendation">
-            <Button
-              typeStyle={"btn"}
-              // onClick={handlerClickCancel}
-            >
+            <Button typeStyle={"btn"} onClick={handlerClickCancel}>
               Cancelar
             </Button>
 
