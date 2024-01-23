@@ -10,6 +10,7 @@ import { BrokerageNotes } from "../pages/BrokerageNotes/BrokerageNotes";
 import { Users } from "../pages/Users/Users";
 
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
+import { PositionsProfitability } from "../pages/PositionsProfitability/PositionsProfitability";
 
 export const router = createBrowserRouter([
     {
@@ -61,8 +62,8 @@ export const router = createBrowserRouter([
                 errorElement: <ErrorBoundary />
             },
             {
-                path:"/detailedProfitability",
-                element: <></>,
+                path:"/positionsProfitability",
+                element: <PositionsProfitability />,
                 errorElement: <ErrorBoundary />
             }
         ],

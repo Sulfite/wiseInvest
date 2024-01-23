@@ -12,7 +12,7 @@ export const Header = () => {
 
         <nav>
           {/* Todos  */}
-          <Link to={"/perfil"}>Perfil</Link>
+          <Link to={"/profile"}>Perfil</Link>
           {/* 1 */}
           <Link to={"/users"}>Usuarios</Link>{" "}
           {/* Controle de acessos e usuarios */}
@@ -32,7 +32,7 @@ export const Header = () => {
           {/* 4 */}
           {/* Cadastro de carteira - Carteira Unica */}
           {/* Cadastro de notas de corretagem */}
-          <Link to={"/detailedProfitability"}>Rentabilidade Detalhada</Link>
+          <Link to={"/positionsProfitability"}>Posições e Rentabilidade</Link>
           {/* Rentabilidade */}
         </nav>
       </div>

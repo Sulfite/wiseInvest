@@ -1,0 +1,31 @@
+.containerPositionProfitality {
+    display: grid;
+    grid-template-areas: "position position profitability profitability"
+                        "positionDetails positionDetails profitabilityDetails profitabilityDetails"
+                        "dividendCalendar dividendCalendar dividendCalendar actionButtons";
+}
+
+.positionBox {
+    grid-area: position;
+
+}
+
+.profitabilityBox {
+    grid-area: profitability;
+}
+
+.positionDetailsBox {
+    grid-area: positionDetails;
+}
+
+.profabilityDetailsBox {
+    grid-area: profitabilityDetails;
+}
+
+.dividendCalendarBox {
+    grid-area: dividendCalendar;
+}
+
+.actionButtonsBox {
+    grid-area: actionButtons;
+}
