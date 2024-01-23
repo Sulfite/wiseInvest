@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh !important;
 }
 
 .containerFormLogin > form {
@@ -28,6 +29,11 @@
 
 #register {
     grid-area: register;
+    text-align: center;
+}
+
+#register > button {
+    width: 100%;
 }
 
 #rlGoogle {

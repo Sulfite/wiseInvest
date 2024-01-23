@@ -36,7 +36,7 @@ export const Header = () => {
           {/* Rentabilidade */}
         </nav>
       </div>
-      
+
       <Outlet />
     </>
   );

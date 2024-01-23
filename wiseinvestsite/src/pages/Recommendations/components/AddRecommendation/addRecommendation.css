@@ -1,0 +1,46 @@
+.containerAddRecommendatio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh !important;
+}
+
+.containerAddRecommendatio > form {
+  width: 75vw;
+  height: 75vh;
+  padding: 0.5rem;
+}
+
+.containerButtonRecommendation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonsControlRecommendation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+}
+
+.buttonsControlRecommendation > button {
+  width: 10rem;
+}
+
+.RecommendationTitle,
+.recomendationDescription,
+.recommendationStonksBuy,
+.recommendationStonksSell {
+  margin: 1rem;
+}
+
+.RecommendationTitle > .formItem,
+.recomendationDescription > .formItem,
+.recommendationStonksBuy > .formItem,
+.recommendationStonksSell > .formItem {
+  margin: none;
+}

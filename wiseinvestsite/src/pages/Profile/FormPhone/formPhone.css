@@ -2,12 +2,12 @@
 	padding: 1rem;
 }
 
-.containerPhone > h1 { 
+.containerPhone > h1 {
 	font-size: 1.5rem;
 	height: 10%;
 }
 
-.containerPhone > form { 
+.containerPhone > form {
 	width: 100%;
 	height: 90%;
 	display: inline-flex;
@@ -15,7 +15,7 @@
 	align-items: center;
 }
 
-form > div {
+.containerPhone form > div {
 	margin: 0.5rem;
 }
 

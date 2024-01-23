@@ -8,9 +8,12 @@ import { Register } from "../pages/Register/Register";
 import { Wallets } from "../pages/Wallets/Wallets";
 import { BrokerageNotes } from "../pages/BrokerageNotes/BrokerageNotes";
 import { Users } from "../pages/Users/Users";
+import { Recommendations } from "../pages/Recommendations/Recommendations";
+import { AddRecommendation } from "../pages/Recommendations/components/AddRecommendation/AddRecommendation";
+import { PositionsProfitability } from "../pages/PositionsProfitability/PositionsProfitability";
+import { DetailsRecommendation } from "../pages/Recommendations/components/DetailsRecommendation/DetailsRecommendation";
 
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
-import { PositionsProfitability } from "../pages/PositionsProfitability/PositionsProfitability";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +25,17 @@ export const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
         errorElement: <ErrorBoundary />,
+    },
+    {
+        path:"/myRecommendation",
+        element: <Recommendations type={"Analista"} />,
+
+        errorElement: <ErrorBoundary />
+    },
+    {
+        path:"/myRecommendation/addIndicationRecommendation",
+        element: <AddRecommendation />,
+        errorElement: <ErrorBoundary />
     },
     {
         element: <Header />,
@@ -41,11 +55,7 @@ export const router = createBrowserRouter([
                 element: <Users />,
                 errorElement: <ErrorBoundary />
             },
-            {
-                path:"/myRecommendation",
-                element: <></>,
-                errorElement: <ErrorBoundary />
-            },
+
             {
                 path:"/Wallets",
                 element: <Wallets />,
@@ -58,7 +68,12 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/recommendations",
-                element: <></>,
+                element: <Recommendations />,
+                errorElement: <ErrorBoundary />
+            },
+            {
+                path:"/detailsRecommendations/:idDetailsRecommendation",
+                element: <DetailsRecommendation />,
                 errorElement: <ErrorBoundary />
             },
             {

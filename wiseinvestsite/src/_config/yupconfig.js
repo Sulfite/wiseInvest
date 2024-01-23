@@ -120,4 +120,24 @@ export const FormValidations = yup.object().shape({
         )
         .min(0.1, "Minimum 0,1.")
         .required("Is required"),
+
+    recommendationTitle: yup
+        .string()
+        .required("Is required")
+        .min(3, "Minimum 3 chars.")
+        .max(50, "Max 50 chars"),
+
+    recommendationDescription: yup
+        .string()
+        .required("Is required")
+        .min(10, "Minimum 3 chars.")
+        .max(500, "Max 500 chars"),
+
+    recommendationStonksBuy: yup
+        .string()
+        .max(60, "Max 60 chars"),
+
+    recommendationStonksSell: yup
+        .string()
+        .max(60, "Max 60 chars"),
 });

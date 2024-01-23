@@ -1,0 +1,21 @@
+textarea.form-control {
+    border-radius:  0.5rem;
+    padding: 0.5rem;
+    border-style: none;
+
+    width: 100%;
+
+    background: var(--white-opacity-005);
+    box-shadow: 0 8px 32px 0 var(--blue-900-037);
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+}
+
+textarea.form-control::placeholder {
+    color: var(--white);
+    opacity: 1; /* Firefox */
+}
+
+textarea.form-control::-ms-input-placeholder { /* Edge 12 -18 */
+    color: var(--white);
+}

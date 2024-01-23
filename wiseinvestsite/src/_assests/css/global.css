@@ -21,8 +21,9 @@
     --gray-850: #1f2729;
     --gray-900: #121214;
 
-    --red-900: #FF0000;
-    --green-900: #14b814;
+    --red-100: #FF0000;
+    --green-100: #14b814;
+    --green-900: #004c00;
 
     /* Palette color site */
     --gold-500: #F0A500;
@@ -112,16 +113,14 @@ a {
     backdrop-filter: blur( 20px );
     -webkit-backdrop-filter: blur( 20px );
     border-radius: 1rem;
-    /* padding: 2rem 0.5rem; */
-    text-align: center;
 }
 
 .card > h1 {
     font-family: var(--font-primary);
     color: var(--gold-300);
     font-weight: 700;
+    text-align: center;
 }
-
 
 .center {
     justify-content: center;
@@ -146,5 +145,5 @@ a {
 
 .infoDanger {
 	font-size: 0.9rem;
-	color: var(--red-900);
+	color: var(--red-100);
 }

@@ -11,11 +11,11 @@
 }
 
 .btn-danger {
-    background-color: var(--red-900);
+    background-color: var(--red-100);
 }
 
 .btn-success {
-    background-color: var(--green-900);
+    background-color: var(--green-100);
 }
 
 .btn-danger,

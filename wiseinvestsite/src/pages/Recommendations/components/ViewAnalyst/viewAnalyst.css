@@ -1,0 +1,44 @@
+.containerViewanalyst {
+
+}
+
+#headerIndicationRecommendations {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0rem 2rem;
+}
+
+.listRecommendations {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+}
+
+.cardRecommendation {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.cardRecommendation > p + h3 {
+  margin: 0.5rem 0rem;
+}
+
+.stonksButSell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.stonksButSell > div > ul > li {
+  list-style: none;
+}
+
+.stonksButSell > div {
+  display: block;
+}

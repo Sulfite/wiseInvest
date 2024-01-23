@@ -1,0 +1,124 @@
+import { useEffect, useState } from "react";
+import { Form, Navigate, useNavigate } from "react-router-dom";
+import { FormValidations } from "../../../../_config/yupconfig";
+import { ValidationError } from "yup";
+
+import Input from "../../../../components/input/Input";
+import Button from "../../../../components/Button/Button";
+import TextArea from "../../../../components/TextArea/TextArea";
+
+import "./addRecommendation.css";
+
+const initialForm = {
+  recommendationTitle: "",
+  recommendationDescription: "",
+  recommendationStonksBuy: "",
+  recommendationStonksSell: "",
+};
+
+export const AddRecommendation = () => {
+  const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
+
+  const validate = async () => {
+    try {
+      await FormValidations.validate(form, { abortEarly: false });
+      setErrors({});
+    } catch (e) {
+      if (e instanceof ValidationError) {
+        const errors = {};
+        e.inner.forEach((key) => {
+          errors[key.path] = key.message;
+        });
+        setErrors(errors);
+      }
+    }
+  };
+
+  const setInput = (newValue) => {
+    setForm((form) => ({ ...form, ...newValue }));
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line
+    validate();
+  }, [form]);
+
+  const handlerClickCancel = () => {
+    return navigate("/myRecommendation");
+  };
+
+  return (
+    <div className="container containerAddRecommendatio">
+      <Form className="card">
+        <div className="RecommendationTitle">
+          <Input
+            label={"Título: "}
+            name="recomendationTitle"
+            type="text"
+            onChange={(e) => setInput({ recommendationTitle: e.target.value })}
+            error={errors.recommendationTitle}
+          />
+        </div>
+
+        <div className="recomendationDescription">
+          <TextArea
+            label={"Descrição: "}
+            name="recomendationDescription"
+            cols="90"
+            rows="5"
+            maxLength="501"
+            minLength="3"
+            spellcheck="true"
+            onChange={(e) =>
+              setInput({ recommendationDescription: e.target.value })
+            }
+            error={errors.recommendationDescription}
+          />
+        </div>
+
+        <div className="recommendationStonksBuy">
+          <Input
+            label={"Recomendações de Compra: "}
+            name="recommendationStonksBuy"
+            type="text"
+            onChange={(e) =>
+              setInput({ recommendationStonksBuy: e.target.value })
+            }
+            error={errors.recommendationStonksBuy}
+          />
+        </div>
+
+        <div className="recommendationStonksSell">
+          <Input
+            label={"Recomendações de Venda: "}
+            name="recommendationStonksSell"
+            type="text"
+            onChange={(e) =>
+              setInput({ recommendationStonksSell: e.target.value })
+            }
+            error={errors.recommendationStonksSell}
+          />
+        </div>
+
+        <div className="containerButtonRecommendation">
+          <div className="buttonsControlRecommendation">
+            <Button typeStyle={"btn"} onClick={handlerClickCancel}>
+              Cancelar
+            </Button>
+
+            <Button
+              typeStyle={"btn-success"}
+              type="submit"
+              // onClick={handlerClickSubmit}
+            >
+              Salvar
+            </Button>
+          </div>
+        </div>
+      </Form>
+    </div>
+  );
+};
