@@ -106,7 +106,13 @@ const deleteUserController = async (req, res, next) => {
 
 const getUsersPaginationControler = async (req, res, next) => {
 
-  const data = req.body;
+  const _offset = req.params.offset;
+  const _limit = req.params.limit;
+
+  const data = {
+    offset: Number(_offset),
+    limit: Number(_limit)
+  };
 
   try {
     const response = await usuarioServices.getUsersPaginationService(data);
