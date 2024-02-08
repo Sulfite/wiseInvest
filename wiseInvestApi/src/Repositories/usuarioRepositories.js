@@ -2,9 +2,12 @@ const db = require('../db/dbMySql');
 
 const loginRepository = async (user) => {
   try {
-    let result = await db.query(`SELECT Email_User, Password_User 
-                                FROM dbo.Users 
-                                WHERE Email_User = '${user}';`);
+    let result = await db.query(`SELECT Email_User
+                                       ,Password_User
+                                       ,ID_Access_Type
+                                       ,ID_user
+                                 FROM dbo.Users 
+                                 WHERE Email_User = '${user}';`);
     return result[0][0];
   } catch (error) {
     return [];

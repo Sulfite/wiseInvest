@@ -7,14 +7,18 @@ const loginController = async (req, res, next) => {
   const { user, password } = req.body;
   
   try {
-    if (isNullOrEmpty(user) || isNullOrEmpty(password))
-      throw '9001.Verifique os dados enviados estão preenchidos corretamente.';
+    if (isNullOrEmpty(user) || isNullOrEmpty(password)) {
+      const exception = new Error('9001.Verifique os dados enviados estão preenchidos corretamente.');
+      exception.code = 401;
+      throw exception;
+    }
 
     const response = await usuarioServices.loginService(user, password);
     res.status(200).send(JSON.stringify(response));
   }
-  catch(error) {
-    return next(JSON.stringify(error));
+  catch(e) {
+    let message = {"title": e.name, "Message": e.message }
+    return res.status(e.code).send(JSON.stringify(message));
   }
 }
 
@@ -99,8 +103,8 @@ const deleteUserController = async (req, res, next) => {
       res.status(200).send(true);
     
   } catch (e) {
-    const message = {"title": e.name, "Message:": e.message };
-    return res.status(e.code).send(`${JSON.stringify(message)}`);
+    const message = {"title": e.name, "Message": e.message };
+    return res.status(e.code).send(JSON.stringify(message));
   }
 }
 

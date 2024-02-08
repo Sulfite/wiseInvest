@@ -35,13 +35,21 @@ const isValidToken = (req, res, next) => {
 		if(err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
 
 		req.userID = decoded.id;
+		req.perfilID = decoded.perfilId;
 		next();
 	});
+}
+
+const signToken = (data) => {
+	const { User_ID, Perfil_ID } = data;
+	const token = jwt.sign({idUser: User_ID, perfilId: Perfil_ID}, process.env.SECRET_TOKEN_AUTENTICACAO);
+	return token;
 }
 
 module.exports = {
 	hash,
 	isNullOrEmpty,
     isValidJson,
-	isValidToken
+	isValidToken,
+	signToken
 }

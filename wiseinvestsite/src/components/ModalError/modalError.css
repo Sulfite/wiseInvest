@@ -1,0 +1,25 @@
+.containerModalErrorAdd{
+	margin: 1rem;
+}
+
+.containerModalErrorAdd > p {
+	text-align: center;
+}
+
+.containerModalErrorAdd > p,
+.containerModalErrorAdd > h1 {
+	color: var(--white);
+}
+
+.containerButtonModalErro,
+.containerModalErrorAdd > p,
+.containerModalErrorAdd > h1 {
+	margin: 0.5rem;
+}
+
+.containerModalErrorAdd > .containerButtonModalErro {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}

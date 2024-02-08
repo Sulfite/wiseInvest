@@ -1,255 +1,291 @@
-const { hash, isNullOrEmpty } = require("../Ultils/Ultils");
+const { hash, isNullOrEmpty, signToken, isValidToken } = require("../Ultils/Ultils");
 const usuarioRepositorie = require("../Repositories/usuarioRepositories");
+const jwt = require("jsonwebtoken");
+
 
 const loginService = async (user, password) => {
-  const passwordCrypto = hash(password);
-  const db = await usuarioRepositorie.loginRepository(user);
+    const passwordCrypto = hash(password);
+    const db = await usuarioRepositorie.loginRepository(user);
 
-  if (isNullOrEmpty(db))
-    throw '9002.Usuario ou senha Inválidos';
+    if (isNullOrEmpty(db)) {
+        const exception = new Error("9002.Usuario ou senha Inválidos");
+        exception.code = 401;
+        throw exception;
+    }
 
-  if (db.Password_User === passwordCrypto)
-    return true;
-  else 
-    throw '9002.Usuario ou senha Inválidos';
-}
+    if (db.Password_User === passwordCrypto) {
+
+        let data = {
+            User_ID: db.ID_user,
+            Perfil_ID: db.ID_Access_Type
+        }
+
+        let token = signToken(data);
+
+        let callback = {
+            authorized: true,
+            token: token
+        }
+        
+        return callback;
+    } else {
+        const exception = new Error("9002.Usuario ou senha Inválidos");
+        exception.code = 401;
+        throw exception;
+    }
+};
 
 const registerService = async (data) => {
+    // Usar funcao de anti injecton
+    // Usar função de validacao de json
 
-  // Usar funcao de anti injecton
-  // Usar função de validacao de json
-  
-  const passwordCrypto = hash(data.password);
-  const newUser = { 
-    Name_user: data.username,
-    Email_user: data.emailUser,
-    Password_user: passwordCrypto,
-    ID_Access_Type: 4
-  };
+    const passwordCrypto = hash(data.password);
+    const newUser = {
+        Name_user: data.username,
+        Email_user: data.emailUser,
+        Password_user: passwordCrypto,
+        ID_Access_Type: 4,
+    };
 
-  try {
-    const db = await usuarioRepositorie.registerRepository(newUser);
+    try {
+        const db = await usuarioRepositorie.registerRepository(newUser);
 
-    if(db.length === 0) {
-      const exception = new Error('Not insert.');
-      exception.code = 500;
-      throw exception;
+        if (db.length === 0) {
+            const exception = new Error("Not insert.");
+            exception.code = 500;
+            throw exception;
+        }
+
+        return { id: db[1] };
+    } catch (error) {
+        const message = {
+            code: error.code,
+            title: error.name,
+            message: error.message,
+        };
+        return message;
     }
-
-    return {"id": db[1]};
-  } catch (error) {
-    const message = {"code": error.code, "title": error.name, "message": error.message }
-    return message;
-  }
-}
+};
 
 const updateSevice = async (id, data) => {
-  // Fazer requisição para verificar se o usuario existe
+    // Fazer requisição para verificar se o usuario existe
 
-  let exists = await verifyUserService(id);
+    let exists = await verifyUserService(id);
 
-  try {
+    try {
+        if (exists === false) {
+            const exception = new Error(
+                "9003.Não foi encontrado usuário para ser alterados."
+            );
+            exception.code = 404;
+            throw exception;
+        }
 
-    if (exists === false) {
-      const exception = new Error('9003.Não foi encontrado usuário para ser alterados.');
-      exception.code = 404;
-      throw exception;
-    }
+        if (isNullOrEmpty(data)) {
+            const exception = new Error(
+                "9003.Não foi encontrado usuário para ser alterados."
+            );
+            exception.code = 404;
+            throw exception;
+        }
 
-    if (isNullOrEmpty(data)) {
-      const exception = new Error('9003.Não foi encontrado usuário para ser alterados.');
-      exception.code = 404;
-      throw exception;
-    }
-
-    let { nameUser,
-          emailUser,
-          passwordUser,
-          dtBirth,
-          nationalIdentifier,
-          typePerson,
-          idAccessType } = data
-    
-    if (!isNullOrEmpty(passwordUser)) {
-      passwordUser = hash(passwordUser);
-    }
-    
-    // if ((typePerson !== 'F') || (typePerson !== 'J')) {
-    //   const exception = new Error('Check the parameters sent. typePerson 1');
-    //   exception.code = 422;
-    //   throw exception;
-    // }
-
-    const newData = {
-      nameUser,
-      emailUser,
-      passwordUser,
-      dtBirth,
-      nationalIdentifier,
-      typePerson,
-      idAccessType
-    }
-
-    const db = await usuarioRepositorie.updateRepository(id, newData);
-
-    if(isNullOrEmpty(db.length)) {
-      const exception = new Error('Not insert');
-      exception.code = 500;
-      throw exception;
-    }
-
-    return db;
-    
-  } catch (error) {
-    const message = {"title": error.name, "Message:": error.message }
-    return message;
-  }
-}
-
-const verifyUserService = async (id) => {
-  const db = await usuarioRepositorie.VerifyUserRepository(id);
-
-  if (db.length > 0)
-    return true;
-  else 
-    return false;
-}
-
-const deleteUserService = async (id) => {
-
-  try {
-    
-    const verify = await verifyUserService(id);
-    
-    if (!verify) {
-      const exception = new Error('Id not found.');
-      exception.code = 404;
-      throw exception;
-    }
-
-    const db = await usuarioRepositorie.deleteRepository(id);
-
-    if(isNullOrEmpty(db.length)) {
-      const exception = new Error('Not delete');
-      exception.code = 500;
-      throw exception;
-    }
-
-    return db;
-
-  } catch (error) {
-    const message = {"code": error.code, "title": error.name, "message": error.message }
-    return message;
-  }
-}
-
-const getUsersPaginationService = async (data) => {
-  const {offset, limit } = data;
-
-  if (isNullOrEmpty(offset) || typeof(offset) != "number") {
-    const exception = new Error('Check the sent offset parameter.');
-    exception.code = 422;
-    throw exception;
-  }
-
-  if (isNullOrEmpty(limit) || typeof(limit) != "number") {
-    const exception = new Error('Check the sent limit parameter.');
-    exception.code = 422;
-    throw exception;
-  }
-  
-  try {
-    const db = await usuarioRepositorie.getUsersPaginationRepository(offset, limit);
-
-    if (db.length === 0) {
-      const exception = new Error('Users not found.');
-      exception.code = 404;
-      throw exception;
-    }
-
-    return db;
-  } catch (error) {
-    const message = {"code": error.code, "title": error.name, "message": error.message}
-    return message;
-  }
-}
-
-const filterUsersService = async (data) => {
-
-  const { name,
-          email,
-          dtBirth,
-          nationalIdentifier,
-          typePerson,
-          idAccessType,
-          active 
+        let {
+            nameUser,
+            emailUser,
+            passwordUser,
+            dtBirth,
+            nationalIdentifier,
+            typePerson,
+            idAccessType,
         } = data;
 
-  let parameterSearch = '';
+        if (!isNullOrEmpty(passwordUser)) {
+            passwordUser = hash(passwordUser);
+        }
 
-  if (!isNullOrEmpty(name)) {
-    parameterSearch = `Name_user LIKE '%${name}%' , `;
-  }
+        // if ((typePerson !== 'F') || (typePerson !== 'J')) {
+        //   const exception = new Error('Check the parameters sent. typePerson 1');
+        //   exception.code = 422;
+        //   throw exception;
+        // }
 
-  if (!isNullOrEmpty(email)) {
-    parameterSearch += `Email_user LIKE '%${email}%' , `;
-  }
+        const newData = {
+            nameUser,
+            emailUser,
+            passwordUser,
+            dtBirth,
+            nationalIdentifier,
+            typePerson,
+            idAccessType,
+        };
 
-  if (!isNullOrEmpty(dtBirth)) {
-    parameterSearch += `dtBirth = '${dtBirth}' , `;
-  }
-  
-  if (!isNullOrEmpty(nationalIdentifier)) {
-    parameterSearch += `nationalIdentifier = '${nationalIdentifier}' , `;
+        const db = await usuarioRepositorie.updateRepository(id, newData);
 
-    if (isNullOrEmpty(typePerson)) {
-      if (nationalIdentifier.length > 11) {
-        typePerson = 'J';
-      } else {
-        typePerson = 'F';
-      }
+        if (isNullOrEmpty(db.length)) {
+            const exception = new Error("Not insert");
+            exception.code = 500;
+            throw exception;
+        }
+
+        return db;
+    } catch (error) {
+        const message = { title: error.name, "Message:": error.message };
+        return message;
     }
-  }
+};
 
-  if(!isNullOrEmpty(typePerson)) {
-    parameterSearch += `Type_Person = '${typePerson}' , `;
-  }
+const verifyUserService = async (id) => {
+    const db = await usuarioRepositorie.VerifyUserRepository(id);
 
-  if (!isNullOrEmpty(email)) {
-    parameterSearch += `Email_user LIKE '%${email}%' , `;
-  }
+    if (db.length > 0) return true;
+    else return false;
+};
 
-  if (!isNullOrEmpty(idAccessType) && typeof(idAccessType) == 'number') {
-    parameterSearch += `ID_Access_Type= ${idAccessType} , `;
-  }
+const deleteUserService = async (id) => {
+    try {
+        const verify = await verifyUserService(id);
 
-  if (!isNullOrEmpty(active)) {
-    parameterSearch += `Active_User = ${active}`;
-  }
+        if (!verify) {
+            const exception = new Error("Id not found.");
+            exception.code = 404;
+            throw exception;
+        }
 
-  parameterSearch = parameterSearch.replaceAll(',', 'AND');
+        const db = await usuarioRepositorie.deleteRepository(id);
 
-  console.log(parameterSearch);
+        if (isNullOrEmpty(db.length)) {
+            const exception = new Error("Not delete");
+            exception.code = 500;
+            throw exception;
+        }
 
+        return db;
+    } catch (error) {
+        const message = {
+            code: error.code,
+            title: error.name,
+            message: error.message,
+        };
+        return message;
+    }
+};
 
-  try {
-    const db = usuarioRepositorie.filterUsersRepository(parameterSearch)
+const getUsersPaginationService = async (data) => {
+    const { offset, limit } = data;
 
-    // return db;
-    return [];
+    if (isNullOrEmpty(offset) || typeof offset != "number") {
+        const exception = new Error("Check the sent offset parameter.");
+        exception.code = 422;
+        throw exception;
+    }
 
-  } catch (error) {
-    const message = {"code": error.code, "title": error.name, "message": error.message};
-    return message;
-  }
-}
+    if (isNullOrEmpty(limit) || typeof limit != "number") {
+        const exception = new Error("Check the sent limit parameter.");
+        exception.code = 422;
+        throw exception;
+    }
+
+    try {
+        const db = await usuarioRepositorie.getUsersPaginationRepository(
+            offset,
+            limit
+        );
+
+        if (db.length === 0) {
+            const exception = new Error("Users not found.");
+            exception.code = 404;
+            throw exception;
+        }
+
+        return db;
+    } catch (error) {
+        const message = {
+            code: error.code,
+            title: error.name,
+            message: error.message,
+        };
+        return message;
+    }
+};
+
+const filterUsersService = async (data) => {
+    const {
+        name,
+        email,
+        dtBirth,
+        nationalIdentifier,
+        typePerson,
+        idAccessType,
+        active,
+    } = data;
+
+    let parameterSearch = "";
+
+    if (!isNullOrEmpty(name)) {
+        parameterSearch = `Name_user LIKE '%${name}%' , `;
+    }
+
+    if (!isNullOrEmpty(email)) {
+        parameterSearch += `Email_user LIKE '%${email}%' , `;
+    }
+
+    if (!isNullOrEmpty(dtBirth)) {
+        parameterSearch += `dtBirth = '${dtBirth}' , `;
+    }
+
+    if (!isNullOrEmpty(nationalIdentifier)) {
+        parameterSearch += `nationalIdentifier = '${nationalIdentifier}' , `;
+
+        if (isNullOrEmpty(typePerson)) {
+            if (nationalIdentifier.length > 11) {
+                typePerson = "J";
+            } else {
+                typePerson = "F";
+            }
+        }
+    }
+
+    if (!isNullOrEmpty(typePerson)) {
+        parameterSearch += `Type_Person = '${typePerson}' , `;
+    }
+
+    if (!isNullOrEmpty(email)) {
+        parameterSearch += `Email_user LIKE '%${email}%' , `;
+    }
+
+    if (!isNullOrEmpty(idAccessType) && typeof idAccessType == "number") {
+        parameterSearch += `ID_Access_Type= ${idAccessType} , `;
+    }
+
+    if (!isNullOrEmpty(active)) {
+        parameterSearch += `Active_User = ${active}`;
+    }
+
+    parameterSearch = parameterSearch.replaceAll(",", "AND");
+
+    console.log(parameterSearch);
+
+    try {
+        const db = usuarioRepositorie.filterUsersRepository(parameterSearch);
+
+        // return db;
+        return [];
+    } catch (error) {
+        const message = {
+            code: error.code,
+            title: error.name,
+            message: error.message,
+        };
+        return message;
+    }
+};
 
 module.exports = {
-  loginService,
-  registerService,
-  updateSevice,
-  verifyUserService,
-  deleteUserService,
-  getUsersPaginationService,
-  filterUsersService
-}
+    loginService,
+    registerService,
+    updateSevice,
+    verifyUserService,
+    deleteUserService,
+    getUsersPaginationService,
+    filterUsersService,
+};

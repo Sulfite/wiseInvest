@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Link } from "react-router-dom";
+import { Await, Form, Link, useNavigate } from "react-router-dom";
 
 import instance from "../../_config/axiosConfig";
 
@@ -8,31 +8,60 @@ import Input from "../../components/input/Input";
 import Button from "../../components/Button/Button";
 
 import { BsGoogle, BsFacebook } from "react-icons/bs";
+import { ModalError } from "../../components/ModalError/ModalError";
 
 export const Login = () => {
     const [nameUser, setNameUser] = useState();
     const [passwordUser, setPasswordUser] = useState();
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [reqError, setReqError] = useState({title: '', Message: ''});
+
+    const nav = useNavigate();
     
+    const openModal = () => {
+        setIsOpen(true);
+    };
+
+    function closeModal() {
+        setIsOpen(false);
+    }
 
     const reqLogin = async (nameUser, passUser) => {
         let output = await instance
             .post(`/login`, {
-              'user': nameUser,
-              'password': passUser
+                user: nameUser,
+                password: passUser,
             })
             .then((response) => {
+                console.log(response);
                 return response.data;
-            });
+            })
+            .catch((error) => {
+                // Error
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
 
+                    console.log(error.response.data);
+
+                    return error.response.data;
+                    // console.log(error.response.status);
+                    // console.log(error.response.headers);
+                }
+            });
         return output;
     };
 
-    const handlerClickLogin = () => {
-        console.log({ nameUser, passwordUser });
+    const handlerClickLogin = async () => {
+        let returnLogin = await reqLogin(nameUser, passwordUser);
 
-        let teste = reqLogin(nameUser, passwordUser);
-
-        console.log(teste);
+        if (returnLogin.authorized === true) {
+            localStorage.setItem('token', returnLogin.token);
+            nav('/dashboard');
+        } else {
+            setReqError({title: returnLogin.title, Message: returnLogin.Message});
+            setIsOpen(true);
+        }
     };
 
     return (
@@ -59,7 +88,6 @@ export const Login = () => {
 
                             <Button
                                 className='btn'
-                                // type="submit"
                                 type='button'
                                 onClick={handlerClickLogin}
                             >
@@ -90,6 +118,8 @@ export const Login = () => {
                     </div>
                 </div>
             </div>
+
+            <ModalError title={reqError.title} mensagem={reqError.Message} openModal={modalIsOpen} closeModal={closeModal} />
         </>
     );
 };
