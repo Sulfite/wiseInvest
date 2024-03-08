@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { Await, Form, Link, useNavigate } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
 
-import instance from "../../_config/axiosConfig";
+import { useDispatch } from 'react-redux';
+
+import { reqLogin } from "../../api/userApi";
+
+import UserActionsTypes from "../../redux/User/actionTypes";
 
 import "./login.css";
 import Input from "../../components/input/Input";
@@ -16,47 +20,28 @@ export const Login = () => {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [reqError, setReqError] = useState({title: '', Message: ''});
 
+    const dispatch = useDispatch();
     const nav = useNavigate();
-    
-    const openModal = () => {
-        setIsOpen(true);
-    };
 
     function closeModal() {
         setIsOpen(false);
     }
 
-    const reqLogin = async (nameUser, passUser) => {
-        let output = await instance
-            .post(`/login`, {
-                user: nameUser,
-                password: passUser,
-            })
-            .then((response) => {
-                console.log(response);
-                return response.data;
-            })
-            .catch((error) => {
-                // Error
-                if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
-
-                    console.log(error.response.data);
-
-                    return error.response.data;
-                    // console.log(error.response.status);
-                    // console.log(error.response.headers);
-                }
-            });
-        return output;
-    };
-
-    const handlerClickLogin = async () => {
+    const handlerClickLogin = async (e) => {
+        e.preventDefault();
         let returnLogin = await reqLogin(nameUser, passwordUser);
 
         if (returnLogin.authorized === true) {
             localStorage.setItem('token', returnLogin.token);
+
+            dispatch({
+                type: UserActionsTypes.LOGIN,
+                payload: { 
+                    authorized: returnLogin.authorized,
+                    personType: returnLogin.personType
+                }
+            })
+
             nav('/dashboard');
         } else {
             setReqError({title: returnLogin.title, Message: returnLogin.Message});

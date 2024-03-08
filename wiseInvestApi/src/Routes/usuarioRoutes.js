@@ -8,9 +8,11 @@ const usuarioController = require("../Controllers/usuarioController");
 router.post('/login',  usuarioController.loginController);
 router.post('/register', usuarioController.registerController);
 // router.post('/register', isValidToken, usuarioController.registerController);
-router.put('/update/:id', usuarioController.updateController);
+router.put('/update', isValidToken, usuarioController.updateController);
+router.put('/updatePlan', isValidToken, usuarioController.updatePlanController);
 router.get('/verify/:id', usuarioController.verifyUserController);
 router.delete('/delete/:id', usuarioController.deleteUserController);
+router.get('/getUser', isValidToken, usuarioController.getUserControler);
 router.get('/getUsers/:offset/:limit', usuarioController.getUsersPaginationControler);
 // router.get('/filterUsers', usuarioController.filterUsersControler);
 

@@ -1,7 +1,5 @@
-const usuarioServices = require("../Services/usuarioServices");
+const usuarioServices = require('../Services/usuarioServices');
 const { isNullOrEmpty } = require('../Ultils/Ultils');
-
-const db = require('../db/dbMySql');
 
 const loginController = async (req, res, next) => {
   const { user, password } = req.body;
@@ -45,8 +43,8 @@ const registerController = async (req, res, next) => {
 
 const updateController = async (req, res, next) => {
   const data = req.body;
-  const _id = req.params.id;
-  
+  const _id = req.headers['x-access-token'];
+
   try {
     if (isNullOrEmpty(_id)) {
       const exception = new Error('Check the parameters sent.');
@@ -55,6 +53,28 @@ const updateController = async (req, res, next) => {
     }
 
     const response = await usuarioServices.updateSevice(_id, data);
+
+    res.status(200).send(response);
+
+  } catch (e) {
+    let message = {"title": e.name, "Message:": e.message }
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+}
+
+
+const updatePlanController = async (req, res, next) => {
+  const data = req.body;
+  const _id = req.headers['x-access-token'];
+
+  try {
+    if (isNullOrEmpty(_id)) {
+      const exception = new Error('Check the parameters sent.');
+      exception.code = 422;
+      throw exception;
+    }
+
+    const response = await usuarioServices.updatePlanSevice(_id, data);
 
     res.status(200).send(response);
 
@@ -108,16 +128,31 @@ const deleteUserController = async (req, res, next) => {
   }
 }
 
-const getUsersPaginationControler = async (req, res, next) => {
+const getUserControler = async (req, res, next) => {
+  const _id = req.headers['x-access-token'];
+  try {
+    const response = await usuarioServices.getUserService(_id);
+    
+    if (response.code > 0 && response.title === 'Error') {
+      const exception = new Error(response.message);
+      exception.code = response.code;
+      throw exception;
+    }
 
+    res.status(200).send(response);
+  } catch (e) {
+    const message = {"title": e.name, "Message:": e.message };
+    return res.status(e.code).send(`${JSON.stringify(message)}`);
+  }
+}
+
+const getUsersPaginationControler = async (req, res, next) => {
   const _offset = req.params.offset;
   const _limit = req.params.limit;
-
   const data = {
     offset: Number(_offset),
     limit: Number(_limit)
   };
-
   try {
     const response = await usuarioServices.getUsersPaginationService(data);
     
@@ -162,6 +197,8 @@ module.exports = {
   updateController,
   verifyUserController,
   deleteUserController,
+  getUserControler,
   getUsersPaginationControler,
-  filterUsersControler
+  filterUsersControler,
+  updatePlanController
 };

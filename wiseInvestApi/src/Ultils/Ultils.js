@@ -34,10 +34,26 @@ const isValidToken = (req, res, next) => {
 	jwt.verify(token, process.env.SECRET_TOKEN_AUTENTICACAO, function(err, decoded) {
 		if(err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
 
-		req.userID = decoded.id;
+		req.userID = decoded.idUser;
 		req.perfilID = decoded.perfilId;
 		next();
 	});
+}
+
+
+const getInfoToken = (token) => {
+
+	if(isNullOrEmpty(token)) return null;
+
+	let id = null;
+	let personType = null;
+
+	jwt.verify(token, process.env.SECRET_TOKEN_AUTENTICACAO, function(err, decoded) {
+		id = decoded.idUser;
+		personType = decoded.perfilId;
+	});
+
+	return { id, personType};
 }
 
 const signToken = (data) => {
@@ -51,5 +67,6 @@ module.exports = {
 	isNullOrEmpty,
     isValidJson,
 	isValidToken,
-	signToken
+	signToken,
+	getInfoToken
 }

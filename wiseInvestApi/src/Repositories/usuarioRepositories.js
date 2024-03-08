@@ -18,9 +18,10 @@ const registerRepository = async (data) => {
   try {
     let result = await db.query("INSERT INTO dbo.Users(Name_user, Email_user, Password_user, Active_User, ID_Access_Type, DH_Inclusion ) VALUES (?,?,?,?,?,?)", [data.Name_user, data.Email_user, data.Password_user, true, data.ID_Access_Type, new Date()]);
     result = result[0];
+    console.log(result);
     return [result["affectedRows"], result["insertId"]];
   } catch (error) {
-    return [];
+    return error;
   }
 }
 
@@ -29,13 +30,23 @@ const updateRepository = async (id, data) => {
     const result = await db.query(`UPDATE Users 
                                    SET Name_user           = ?
                                       ,Email_user          = ?
-                                      ,Password_user       = ?
                                       ,DT_Birth            = ?
                                       ,National_Identifier = ?
                                       ,Type_Person         = ?
-                                      ,ID_Access_Type      = ?
                                       ,DH_Change           = ?
-                                   WHERE ID_user = ?;`, [data.nameUser, data.emailUser, data.passwordUser, data.dtBirth, data.nationalIdentifier, data.typePerson, data.idAccessType, new Date(), id]);
+                                   WHERE ID_user = ?;`, [data.nameUser, data.emailUser, data.dtBirth, data.nationalIdentifier, data.typePerson, new Date(), id]);
+
+    return [result[0]["affectedRows"]];
+  } catch (error) {
+    return [];
+  }
+}
+
+const updatePlanRepository = async (id, data) => {
+  try {
+    const result = await db.query(`UPDATE Users 
+                                   SET ID_Access_Type = ?
+                                   WHERE ID_user = ?;`, [data, id]);
 
     return [result[0]["affectedRows"]];
   } catch (error) {
@@ -59,6 +70,23 @@ const deleteRepository = async (id) => {
     const result = await db.query(`DELETE FROM dbo.Users 
                                    WHERE ID_user = ${id}`);
     return [result[0]["affectedRows"]];
+  } catch (error) {
+    return [];
+  }
+}
+
+const getUserRepository = async (data) => {
+  try {
+    const result = await db.query(`SELECT Name_user
+                                         ,Email_user
+                                         ,DT_Birth
+                                         ,National_Identifier
+                                         ,Type_Person
+                                         ,ID_Access_Type
+                                   FROM dbo.users
+                                   WHERE ID_user = ${data};`);
+
+    return result[0];
   } catch (error) {
     return [];
   }
@@ -98,6 +126,8 @@ module.exports= {
   updateRepository,
   VerifyUserRepository,
   deleteRepository,
+  getUserRepository,
   getUsersPaginationRepository,
-  filterUsersRepository
+  filterUsersRepository,
+  updatePlanRepository
 }

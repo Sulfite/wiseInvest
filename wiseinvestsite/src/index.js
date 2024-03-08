@@ -1,21 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
+import store from "./redux/store";
+import { Provider } from "react-redux";
+
 import Modal from "react-modal";
 
-import { router } from './_config/ApplicationRoutes';
+import { router } from "./_config/ApplicationRoutes";
 
-import './_assests/css/global.css';
-import './components/Header/Header.css';
+import "./_assests/css/global.css";
+import "./components/Header/Header.css";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <React.StrictMode>
+        <Provider store={store}>
+            <RouterProvider router={router} />
+        </Provider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
